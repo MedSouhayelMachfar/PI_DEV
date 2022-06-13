@@ -44,7 +44,7 @@ public class LogInController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 					if(AuthService.logInUser(tf_email.getText(), pf_password.getText())) {
-						SceneManager.changeScene(event, "loggedIn.fxml", "logged in!", "user", "pass");
+						SceneManager.changeScene(event, "Home.fxml", "logged in!", "user", "pass");
 					}else {
 						Alert alert = new Alert(Alert.AlertType.ERROR);
 						alert.setHeaderText(null);

@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class LoggedInController implements Initializable{
+public class HomeController implements Initializable{
 	
 	@FXML
 	private Button button_logout;
