@@ -43,7 +43,6 @@ public class JeuDAOImpl implements JeuDAO {
 
 		Datasource.closeResultSet(rs);
 		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(con);
 
 		return Jeu;
 	}
@@ -95,7 +94,6 @@ public class JeuDAOImpl implements JeuDAO {
 		int result = ps.executeUpdate();
 
 		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(con);
 
 		return result;
 	}
@@ -116,7 +114,6 @@ public class JeuDAOImpl implements JeuDAO {
 		int result = ps.executeUpdate();
 		
 		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(connection);
 		
 		return result;
 	}
@@ -133,7 +130,6 @@ public class JeuDAOImpl implements JeuDAO {
 		int result = ps.executeUpdate();
 		
 		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(connection);
 		
 		return result;
 	}

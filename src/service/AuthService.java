@@ -7,61 +7,93 @@ import java.sql.SQLException;
 
 import entity.User;
 import utils.Datasource;
+import utils.PasswordManager;
 
 public class AuthService {
-	
-	// Sign up user
-	public static int signUp(User user) throws SQLException {
-		Connection con = Datasource.getConnection();
-		
-		ResultSet rs;
-		String selectQuery = "SELECT * FROM USER WHERE email = ?";
-		PreparedStatement selectps = con.prepareStatement(selectQuery);
-		selectps.setString(1, user.getEmail());
-		rs = selectps.executeQuery();
-		int errorCode;
-		
-		if (rs.isBeforeFirst()) {
-			errorCode = 2;
-			System.out.println("User already exists !");
-		} else {
-			errorCode = new UserDAOImpl().insert(user);
-		}
+	public static User loggedInUser;
 
-		Datasource.closeResultSet(rs);
-		Datasource.closePreparedStatement(selectps);
-		
-		return errorCode;
+	/*
+	 * 
+	 * Sign up function responsible for creating user account Input :
+	 * User(first_name, last_name, email, password) Output : integer as isOperation
+	 * true : No Errors, account has been created false : Error, operation failed
+	 */
+
+	public static boolean signUp(User user) throws SQLException {
+		Connection con = Datasource.getConnection();
+		boolean isOperationSuccessful = false;
+		if (con != null) {
+			ResultSet rs;
+			String selectQuery = "SELECT * FROM USER WHERE email = ?";
+			PreparedStatement selectps = con.prepareStatement(selectQuery);
+			selectps.setString(1, user.getEmail());
+			rs = selectps.executeQuery();
+
+			if (rs.isBeforeFirst()) {
+				System.out.println("User already exists !");
+			} else {
+				// Hashing password before insertion
+				user.setPassword(PasswordManager.SecurePassword(user.getPassword()));
+				// Persisting user to DB
+				new UserDAOImpl().insert(user);
+				isOperationSuccessful = true;
+			}
+
+			Datasource.closeResultSet(rs);
+			Datasource.closePreparedStatement(selectps);
+		}
+		return isOperationSuccessful;
 	}
-	
-	
-	// log in user
+
+	/*
+	 * 
+	 * Log in function responsible for checking user credentials. 
+	 * Input : email, password 
+	 * Output : integer as isOperation 
+	 * 			true : No Errors, correct, credentials 
+	 * 			false : Error, wrong credentials
+	 */
 	public static boolean logInUser(String email, String password) throws SQLException {
 		Connection con = Datasource.getConnection();
-		
-		ResultSet rs;
-		String selectQuery = "SELECT * FROM USER WHERE email = ?";
-		PreparedStatement selectps = con.prepareStatement(selectQuery);
-		selectps.setString(1, email);
-		rs = selectps.executeQuery();
-		boolean isCorrect = false;
-		if (!rs.isBeforeFirst()) {
-			System.out.println("User not found in the data base !");
-		} else {
-			
-			while (rs.next()) {
-				String retrivedPassword = rs.getString("password");
-				if(retrivedPassword.equals(password)) {
-					System.out.println("You are logged in !");
-					isCorrect = true;
-				} else {
-					System.out.println("Password did not match !");
+		boolean isOperationSuccessful = false;
+
+		if(con != null) {
+			ResultSet rs;
+			String selectQuery = "SELECT * FROM USER WHERE email = ?";
+			PreparedStatement selectps = con.prepareStatement(selectQuery);
+			selectps.setString(1, email);
+			rs = selectps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("User not found in the data base !");
+			} else {
+				while (rs.next()) {
+					String retrivedPassword = rs.getString("password");
+					if (PasswordManager.verifyPassword(password, retrivedPassword)) {
+						System.out.println("You are logged in !");
+						int userId = rs.getInt("user_id");
+						String first_name = rs.getString("first_name");
+						String last_name = rs.getString("last_name");
+						String user_email = rs.getString("email");
+
+						AuthService.loggedInUser = new User(userId, first_name, last_name, user_email);
+						isOperationSuccessful = true;
+					} else {
+						System.out.println("Password did not match !");
+					}
 				}
 			}
+			
+			Datasource.closeResultSet(rs);
+			Datasource.closePreparedStatement(selectps);
 		}
-
-		Datasource.closeResultSet(rs);
-		Datasource.closePreparedStatement(selectps);
-		return isCorrect;
+		return isOperationSuccessful;
+	}
+	
+	/*
+	 * 
+	 * Logout function responsible for clearing the user state
+	 */
+	public static void logout() {
+		loggedInUser = null;
 	}
 }

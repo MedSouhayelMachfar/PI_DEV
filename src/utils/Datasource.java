@@ -21,24 +21,26 @@ public class Datasource {
 	// private constructor
 	private Datasource() {
 		super();
-	}
-
-	// This will be executed the moment we instantiate the class
-	static {
-		try {
-			Class.forName(DRIVER_CLASS);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	} 
 
 	// Methods
 	public static Datasource getInstance() {
 		return instance;
 	}
+	
+	private static void createConnection() {
+		try {
+			Class.forName(DRIVER_CLASS);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	public static Connection getConnection() {
+		if(con == null) {
+			createConnection();
+		}
 		return con;
 	}
 	

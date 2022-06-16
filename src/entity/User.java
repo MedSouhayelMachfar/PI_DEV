@@ -47,7 +47,14 @@ public class User {
 		this.email = email;
 		this.etatCompte = false;
 	}
-
+	public User(int userId, String firstName, String lastName, String email) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.etatCompte = false;
+	}
 	// Getters and setters
 	public int getUserId() {
 		return userId;

@@ -42,7 +42,6 @@ public class UserDAOImpl implements UserDAO {
 
 		Datasource.closeResultSet(rs);
 		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(con);
 
 		return user;
 	}
@@ -85,19 +84,22 @@ public class UserDAOImpl implements UserDAO {
 	// CRUD - Create
 	@Override
 	public int insert(User user) throws SQLException {
-		Connection con = Datasource.getConnection();
+		Connection connection = Datasource.getConnection();
+		int result = -1;
+		if (connection != null) {
+			String insertQuery = "INSERT INTO user (first_name, last_name, email, password, etat_compte, role) VALUES (?, ?, ?, ?, 'inactive', 'user')";
+			PreparedStatement insertps = connection.prepareStatement(insertQuery);
 
-		String insertQuery = "INSERT INTO user (first_name, last_name, email, password, etat_compte) VALUES (?, ?, ?, ?, 'inactive')";
-		PreparedStatement insertps = con.prepareStatement(insertQuery);
+			insertps.setString(1, user.getFirstName());
+			insertps.setString(2, user.getLastName());
+			insertps.setString(3, user.getEmail());
+			insertps.setString(4, user.getPassword());
 
-		insertps.setString(1, user.getFirstName());
-		insertps.setString(2, user.getLastName());
-		insertps.setString(3, user.getEmail());
-		insertps.setString(4, user.getPassword());
+			result = insertps.executeUpdate();
 
-		int result = insertps.executeUpdate();
+			Datasource.closePreparedStatement(insertps);
+		}
 
-		Datasource.closePreparedStatement(insertps);		
 		return result;
 	}
 
@@ -105,22 +107,24 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int update(User user) throws SQLException {
 		Connection connection = Datasource.getConnection();
+		int result = -1;
+		if (connection != null) {
+			if (connection != null) {
+				String sql = "UPDATE user set user_id = ?, first_name = ?, last_name = ?, email = ?, etat_compte = ? where id = ?";
 
-		String sql = "UPDATE user set user_id = ?, first_name = ?, last_name = ?, email = ?, etat_compte = ? where id = ?";
+				PreparedStatement ps = connection.prepareStatement(sql);
 
-		PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, user.getUserId());
+				ps.setString(2, user.getFirstName());
+				ps.setString(3, user.getLastName());
+				ps.setString(4, user.getEmail());
+				ps.setBoolean(5, user.isEtatCompte());
 
-		ps.setInt(1, user.getUserId());
-		ps.setString(2, user.getFirstName());
-		ps.setString(3, user.getLastName());
-		ps.setString(4, user.getEmail());
-		ps.setBoolean(5, user.isEtatCompte());
+				result = ps.executeUpdate();
 
-		int result = ps.executeUpdate();
-
-		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(connection);
-
+				Datasource.closePreparedStatement(ps);
+			}
+		}
 		return result;
 	}
 
@@ -138,7 +142,6 @@ public class UserDAOImpl implements UserDAO {
 		int result = ps.executeUpdate();
 
 		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(connection);
 
 		return result;
 	}

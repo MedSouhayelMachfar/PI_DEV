@@ -2,6 +2,8 @@ package utils;
 
 import java.io.IOException;
 
+import controller.HomeController;
+import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,14 +13,16 @@ import javafx.stage.Stage;
 
 public class SceneManager {
 	
-	public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String email) {
+	public static void changeScene(ActionEvent event, String fxmlFile, String title, User usr) {
 		
 		Parent root = null;
 		fxmlFile = "/view/"+fxmlFile;
-		if (username != null && email != null) {
+		if (usr != null) {
 			try {
 				FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlFile));
 				root = loader.load();
+				HomeController homeController = loader.getController();
+				homeController.setUserInformation(usr.getUserId(), usr.getFirstName(), usr.getLastName(), usr.getEmail());
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
