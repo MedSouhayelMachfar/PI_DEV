@@ -37,7 +37,8 @@ public class UserDAOImpl implements UserDAO {
 			String email = rs.getString("email");
 			boolean etatC = rs.getBoolean("etatCompte");
 
-			user = new User(userId, firstName, lastName, email, etatC);
+			//user = new User(userId, firstName, lastName, email, etatC);
+			user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).build();
 		}
 
 		Datasource.closeResultSet(rs);
@@ -58,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
 		Statement stmt = con.createStatement();
 
 		ResultSet rs = stmt.executeQuery(sql);
-
+		User user;
 		while (rs.next()) {
 			int userId = rs.getInt("user_id");
 			String firstName = rs.getString("first_name");
@@ -66,7 +67,8 @@ public class UserDAOImpl implements UserDAO {
 			String email = rs.getString("email");
 			boolean etatC = rs.getBoolean("etat_compte");
 
-			User user = new User(userId, firstName, lastName, email, etatC);
+			//User user = new User(userId, firstName, lastName, email, etatC);
+			user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).build();
 
 			users.add(user);
 		}

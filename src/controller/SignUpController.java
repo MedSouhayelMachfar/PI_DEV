@@ -54,8 +54,9 @@ public class SignUpController implements Initializable {
 					AlertModal.showErrorAlert(null, "Please fill in all information to sign up!");
 				} else {
 					try {
-						if (AuthService.signUp(new User(tf_firstname.getText(), tf_lastname.getText(),
-								tf_email.getText(), pf_password.getText())) == false) {
+						User newlyUser = new User.UserBuilder().firstName(tf_firstname.getText()).lastName(tf_lastname.getText()).email(tf_email.getText()).password(pf_password.getText()).build();
+
+						if (AuthService.signUp(newlyUser) == false) {
 							AlertModal.showErrorAlert(null, "User already exists!");
 						} else {
 							AlertModal.showInfoAlert("Account has been created!", "You can now login!");
@@ -66,6 +67,7 @@ public class SignUpController implements Initializable {
 					}
 				}
 			}
+			
 		});
 		
 		/*

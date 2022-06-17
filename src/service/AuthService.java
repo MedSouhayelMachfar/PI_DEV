@@ -14,8 +14,9 @@ public class AuthService {
 
 	/*
 	 * 
-	 * Sign up function responsible for creating user account Input :
-	 * User(first_name, last_name, email, password) Output : integer as isOperation
+	 * Sign up function responsible for creating user account 
+	 * Input : User(first_name, last_name, email, password) 
+	 * Output : integer as isOperation
 	 * true : No Errors, account has been created false : Error, operation failed
 	 */
 
@@ -48,16 +49,16 @@ public class AuthService {
 	/*
 	 * 
 	 * Log in function responsible for checking user credentials. 
-	 * Input : email, password 
+	 * Input : email,password 
 	 * Output : integer as isOperation 
-	 * 			true : No Errors, correct, credentials 
-	 * 			false : Error, wrong credentials
+	 * true : No Errors, correct,credentials 
+	 * false : Error, wrong credentials
 	 */
 	public static boolean logInUser(String email, String password) throws SQLException {
 		Connection con = Datasource.getConnection();
 		boolean isOperationSuccessful = false;
 
-		if(con != null) {
+		if (con != null) {
 			ResultSet rs;
 			String selectQuery = "SELECT * FROM USER WHERE email = ?";
 			PreparedStatement selectps = con.prepareStatement(selectQuery);
@@ -75,20 +76,22 @@ public class AuthService {
 						String last_name = rs.getString("last_name");
 						String user_email = rs.getString("email");
 
-						AuthService.loggedInUser = new User(userId, first_name, last_name, user_email);
+						AuthService.loggedInUser = new User.UserBuilder().userId(userId).firstName(first_name)
+								.lastName(last_name).email(user_email).build();
+
 						isOperationSuccessful = true;
 					} else {
 						System.out.println("Password did not match !");
 					}
 				}
 			}
-			
+
 			Datasource.closeResultSet(rs);
 			Datasource.closePreparedStatement(selectps);
 		}
 		return isOperationSuccessful;
 	}
-	
+
 	/*
 	 * 
 	 * Logout function responsible for clearing the user state

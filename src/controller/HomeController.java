@@ -22,8 +22,17 @@ public class HomeController implements Initializable {
 	private Label label_welcome;
 	
 	@FXML
-	private Label label_content;
+	private Button button_nav_accueil;
 	
+	@FXML
+	private Button button_nav_bib;
+	
+	@FXML
+	private Button button_nav_forum;
+	
+	@FXML
+	private Button button_nav_notif;
+		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -39,8 +48,7 @@ public class HomeController implements Initializable {
 	
 	// Setting user info passed from login screen
 	public void setUserInformation(int id_user, String first_name, String last_name, String email) {
-		label_welcome.setText("Welcome:  " + first_name+" "+last_name);
-		label_content.setText("Email: " + email);
+		label_welcome.setText(last_name);
 		System.out.println(AuthService.loggedInUser);
 	}
 }
