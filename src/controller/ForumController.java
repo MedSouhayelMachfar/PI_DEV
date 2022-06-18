@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import service.AuthService;
 import utils.SceneManager;
 
-public class HomeController implements Initializable {
+public class ForumController implements Initializable {
 	
 	@FXML
 	private Button button_logout;
@@ -44,11 +44,11 @@ public class HomeController implements Initializable {
 			}
 		});
 		
-		button_nav_forum.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+		button_nav_accueil.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				AuthService.logout();
-				SceneManager.changeScene(event, "forum.fxml", "Forum", null);
+				SceneManager.changeScene(event, "home.fxml", "Home", null);
 			}
 		});
 		
@@ -67,7 +67,6 @@ public class HomeController implements Initializable {
 				SceneManager.changeScene(event, "notif.fxml", "Notification", null);
 			}
 		});
-
 
 	}
 	
