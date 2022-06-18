@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import service.AuthService;
 import utils.SceneManager;
 
@@ -32,7 +33,12 @@ public class BibController implements Initializable {
 	
 	@FXML
 	private Button button_nav_notif;
-		
+	
+	@FXML
+	private Button getmetheuser;
+	@FXML 
+	private Text label_content;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -47,7 +53,6 @@ public class BibController implements Initializable {
 		button_nav_accueil.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AuthService.logout();
 				SceneManager.changeScene(event, "home.fxml", "Forum", null);
 			}
 		});
@@ -55,7 +60,6 @@ public class BibController implements Initializable {
 		button_nav_notif.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AuthService.logout();
 				SceneManager.changeScene(event, "notif.fxml", "Notification", null);
 			}
 		});
@@ -63,8 +67,14 @@ public class BibController implements Initializable {
 		button_nav_forum.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AuthService.logout();
 				SceneManager.changeScene(event, "forum.fxml", "Forum", null);
+			}
+		});
+		
+		getmetheuser.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				label_content.setText(AuthService.loggedInUser.toString());
 			}
 		});
 

@@ -111,6 +111,7 @@ public class User {
 		public UserBuilder() {
 			super();
 		}
+
 		public UserBuilder userId(int userId) {
 			this.userId = userId;
 			return this;
@@ -120,7 +121,7 @@ public class User {
 			this.firstName = firstName;
 			return this;
 		}
-
+		
 		public UserBuilder lastName(String lastName) {
 			this.lastName = lastName;
 			return this;

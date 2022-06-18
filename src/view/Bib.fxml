@@ -31,11 +31,12 @@
       </AnchorPane>
       <AnchorPane prefHeight="613.0" prefWidth="1000.0">
          <children>
-            <Text layoutX="407.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER" wrappingWidth="158.576171875">
+            <Text fx:id="label_content" layoutX="407.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER" wrappingWidth="158.576171875">
                <font>
                   <Font size="29.0" />
                </font>
             </Text>
+            <Button fx:id="getmetheuser" layoutX="167.0" layoutY="188.0" mnemonicParsing="false" text="get me the user " />
          </children></AnchorPane>
    </children>
 </VBox>

@@ -80,8 +80,7 @@ public class UserDAOImpl implements UserDAO {
 
 	// CRUD - Create or Update
 	@Override
-	public int save(User employee) throws SQLException {
-		// TODO Auto-generated method stub
+	public int save(User user)  {
 		return 0;
 	}
 
@@ -113,22 +112,20 @@ public class UserDAOImpl implements UserDAO {
 		Connection connection = Datasource.getConnection();
 		int result = -1;
 		if (connection != null) {
-			if (connection != null) {
-				String sql = "UPDATE user set user_id = ?, first_name = ?, last_name = ?, email = ?, etat_compte = ? where id = ?";
+			String updateQuery = " UPDATE user "
+					+ " SET first_name = ?, last_name = ? "
+					+ " WHERE user_id = ?; ";
+			PreparedStatement updateps = connection.prepareStatement(updateQuery);
 
-				PreparedStatement ps = connection.prepareStatement(sql);
+			updateps.setString(1, user.getFirstName());
+			updateps.setString(2, user.getLastName());
+			updateps.setInt(3, user.getUserId());
 
-				ps.setInt(1, user.getUserId());
-				ps.setString(2, user.getFirstName());
-				ps.setString(3, user.getLastName());
-				ps.setString(4, user.getEmail());
-				ps.setString(5, user.getEtatCompte());
+			result = updateps.executeUpdate();
 
-				result = ps.executeUpdate();
-
-				Datasource.closePreparedStatement(ps);
-			}
+			Datasource.closePreparedStatement(updateps);
 		}
+
 		return result;
 	}
 

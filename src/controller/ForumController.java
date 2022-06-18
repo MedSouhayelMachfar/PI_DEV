@@ -47,7 +47,6 @@ public class ForumController implements Initializable {
 		button_nav_accueil.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AuthService.logout();
 				SceneManager.changeScene(event, "home.fxml", "Home", null);
 			}
 		});
@@ -55,7 +54,6 @@ public class ForumController implements Initializable {
 		button_nav_bib.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AuthService.logout();
 				SceneManager.changeScene(event, "bib.fxml", "Bibliotheque", null);
 			}
 		});
@@ -63,7 +61,6 @@ public class ForumController implements Initializable {
 		button_nav_notif.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AuthService.logout();
 				SceneManager.changeScene(event, "notif.fxml", "Notification", null);
 			}
 		});
