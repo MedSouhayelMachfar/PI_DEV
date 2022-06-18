@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
 		Connection con = Datasource.getConnection();
 		User user = null;
 
-		String sql = "SELECT user_id, first_name, last_name, email, etat_compte FROM user WHERE id = ?";
+		String sql = "SELECT * FROM user WHERE user_id = ?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -35,10 +35,11 @@ public class UserDAOImpl implements UserDAO {
 			String firstName = rs.getString("first_name");
 			String lastName = rs.getString("last_name");
 			String email = rs.getString("email");
-			boolean etatC = rs.getBoolean("etatCompte");
+			String etatC = rs.getString("etat_compte");
+			String role = rs.getString("role");
+			String image = rs.getString("user_image");
 
-			//user = new User(userId, firstName, lastName, email, etatC);
-			user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).build();
+			user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).role(role).user_image(image).build();
 		}
 
 		Datasource.closeResultSet(rs);
@@ -52,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> getAll() throws SQLException {
 
 		Connection con = Datasource.getConnection();
-		String sql = "SELECT user_id, first_name, last_name, email, etat_compte FROM user";
+		String sql = "SELECT * FROM user";
 
 		List<User> users = new ArrayList<>();
 
@@ -65,10 +66,11 @@ public class UserDAOImpl implements UserDAO {
 			String firstName = rs.getString("first_name");
 			String lastName = rs.getString("last_name");
 			String email = rs.getString("email");
-			boolean etatC = rs.getBoolean("etat_compte");
+			String etatC = rs.getString("etat_compte");
+			String role = rs.getString("role");
+			String image = rs.getString("user_image");
 
-			//User user = new User(userId, firstName, lastName, email, etatC);
-			user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).build();
+			user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).role(role).user_image(image).build();
 
 			users.add(user);
 		}
@@ -89,7 +91,7 @@ public class UserDAOImpl implements UserDAO {
 		Connection connection = Datasource.getConnection();
 		int result = -1;
 		if (connection != null) {
-			String insertQuery = "INSERT INTO user (first_name, last_name, email, password, etat_compte, role) VALUES (?, ?, ?, ?, 'inactive', 'user')";
+			String insertQuery = "INSERT INTO user (first_name, last_name, email, password, etat_compte, role, user_image) VALUES (?, ?, ?, ?, 'inactive', 'user', 'avatar.png')";
 			PreparedStatement insertps = connection.prepareStatement(insertQuery);
 
 			insertps.setString(1, user.getFirstName());
@@ -120,7 +122,7 @@ public class UserDAOImpl implements UserDAO {
 				ps.setString(2, user.getFirstName());
 				ps.setString(3, user.getLastName());
 				ps.setString(4, user.getEmail());
-				ps.setBoolean(5, user.isEtatCompte());
+				ps.setString(5, user.getEtatCompte());
 
 				result = ps.executeUpdate();
 

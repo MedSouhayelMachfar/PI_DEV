@@ -6,8 +6,10 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String etatCompte;
 	private String password;
-	private boolean etatCompte;
+	private String role;
+	private String user_image;
 
 	// Constructors
 	public User() {
@@ -20,8 +22,10 @@ public class User {
 		this.firstName = userBuilder.firstName;
 		this.lastName = userBuilder.lastName;
 		this.email = userBuilder.email;
-		this.password = userBuilder.password;
 		this.etatCompte = userBuilder.etatCompte;
+		this.password = userBuilder.password;
+		this.role = userBuilder.role;
+		this.user_image = userBuilder.user_image;
 	}
 
 	// Getters and setters
@@ -65,14 +69,27 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isEtatCompte() {
+	public String getEtatCompte() {
 		return etatCompte;
 	}
 
-	public void setEtatCompte(boolean etatCompte) {
+	public void setEtatCompte(String etatCompte) {
 		this.etatCompte = etatCompte;
 	}
+	public String getRole() {
+		return role;
+	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public String getUserImage() {
+		return user_image;
+	}
+
+	public void setUserImage(String userImg) {
+		this.user_image = userImg;
+	}
 	// Methods
 	@Override
 	public String toString() {
@@ -86,8 +103,10 @@ public class User {
 		private String firstName;
 		private String lastName;
 		private String email;
+		private String etatCompte;
 		private String password;
-		private boolean etatCompte;
+		private String role;
+		private String user_image;
 
 		public UserBuilder() {
 			super();
@@ -117,8 +136,17 @@ public class User {
 			return this;
 		}
 
-		public UserBuilder etatCompte(boolean etatCompte) {
+		public UserBuilder etatCompte(String etatCompte) {
 			this.etatCompte = etatCompte;
+			return this;
+		}
+		public UserBuilder role(String role) {
+			this.role = role;
+			return this;
+		}
+
+		public UserBuilder user_image(String user_iamge) {
+			this.user_image = user_iamge;
 			return this;
 		}
 
