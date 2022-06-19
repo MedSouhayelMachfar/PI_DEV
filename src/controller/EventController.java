@@ -9,14 +9,10 @@ package controller;
 import entity.Event;
 import java.net.URL;
 import java.util.ResourceBundle;
-import static javafx.application.ConditionalFeature.FXML;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javax.swing.JOptionPane;
-import sun.util.calendar.LocalGregorianCalendar.Date;
 
 
 /**
