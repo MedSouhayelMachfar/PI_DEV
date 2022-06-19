@@ -25,12 +25,13 @@ public class Event {
     private int eventMaxNumberParticipant;
     private int eventNumberReservation;
     private String eventDescription;
+    
     private int userId;
     
     
     // Constructors
     	public Event() {
-		super();
+		
 	}
 
         
