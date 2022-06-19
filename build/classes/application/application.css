@@ -1,0 +1,38 @@
+.parent{
+	-fx-background-color: transparent;
+}
+.pane{
+	-fx-background-color: #33698F;
+	
+}
+.trans-btn-white-border{
+	-fx-background-color:transparent;
+	-fx-background-radius: 5px;
+	-fx-border-color: #cccccc;
+	-fx-border-radius: 5px;
+	-fx-border-width:1px;
+	-fx-text-fill: whitesmoke;
+
+}
+
+.white-pane{
+	-fx-background-image:url("/images/105229345.jpg");
+	-fx-background-size: 353 445;
+	-fx-background-position: center center;
+	-fx-background-color: #FFFFFF;
+}
+.tf_box{
+	-fx-background-color:transparent;
+	-fx-border-color: #DEDEE4;
+	-fx-border-width:0px 0px 0px 0px;
+}
+.tf{
+	-fx-background-color:transparent;
+	-fx-prompt-text-fill: #2C2C2C;
+}
+.pink-btn{
+	-fx-background-color: #C5304D;
+	-fx-background-radius: 5px;
+	-fx-prompt-text-fill: #FFFFFF;
+	
+}
