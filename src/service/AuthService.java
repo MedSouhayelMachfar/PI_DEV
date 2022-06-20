@@ -75,9 +75,12 @@ public class AuthService {
 						String first_name = rs.getString("first_name");
 						String last_name = rs.getString("last_name");
 						String user_email = rs.getString("email");
+						String etatCompte = rs.getString("etat_compte");
+						String role = rs.getString("role");
+						String user_image = rs.getString("user_image");
 
 						AuthService.loggedInUser = new User.UserBuilder().userId(userId).firstName(first_name)
-								.lastName(last_name).email(user_email).build();
+								.lastName(last_name).email(user_email).etatCompte(etatCompte).role(role).user_image(user_image).build();
 
 						isOperationSuccessful = true;
 					} else {
