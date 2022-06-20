@@ -5,8 +5,6 @@
  */
 package service;
 
-
-
 import entity.Event;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,11 +22,13 @@ import utils.Datasource;
  */
 public class EventDAOImp implements EventDAO {
 
+    // CRUD - Retrieve
+    @Override
     public Event get(int id) throws SQLException {
         Connection con = Datasource.getConnection();
         Event event = null;
 
-        String sql = "SELECT Id_Events, Nom_Event, Date_Debut, Dure, Tranche_Age,Lien_Serveur FROM evenement WHERE id = ?";
+        String sql = "SELECT * FROM evenement WHERE event_id  = ?";
 
         PreparedStatement ps = con.prepareStatement(sql);
 
@@ -37,45 +37,54 @@ public class EventDAOImp implements EventDAO {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
+            int eventId = rs.getInt("event_id ");
+            String eventName = rs.getString("event_name");
+            Date eventStartDate = rs.getDate("event_start_date");
+            Date eventEndDate = rs.getDate("event_end_date");
+            String eventAgeRange = rs.getString("event_age_range");
+            String eventAddress = rs.getString("event_address");
+            int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
+            int eventNumberReservation = rs.getInt("event_number_reservation");
+            String eventDescription = rs.getString("event_description");
+            int userId = rs.getInt("user_id");
 
-            int eventsId = rs.getInt("Id_Events");
-            String eventsName = rs.getString("Nom_Event");
-            Date eventsDate = rs.getDate("Date_Debut");
-            int eventsDure = rs.getInt("Dure");
-            String trancheAge = rs.getString("Tranche_Age");
-            String LienServeur = rs.getString("Lien_Serveur");
-
-            event = new Event(eventsId, eventsName, eventsDate, eventsDure, trancheAge, LienServeur);
+            event = new Event.EventBuilder().eventId(eventId).eventName(eventName).eventStartDate(eventStartDate).eventEndDate(eventEndDate).eventAgeRange(eventAgeRange).eventAddress(eventAddress)
+                    .eventMaxNumberParticipant(eventMaxNumberParticipant).eventNumberReservation(eventNumberReservation).eventDescription(eventDescription).userId(userId).build();
         }
 
         Datasource.closeResultSet(rs);
         Datasource.closePreparedStatement(ps);
-        Datasource.closeConnection(con);
 
         return event;
     }
 
+    // CRUD - Retrieve All
     @Override
     public List<Event> getAll() throws SQLException {
 
         Connection con = Datasource.getConnection();
-        String sql = "SELECT Id_Events, Nom_Event, Date_Debut, Dure, Tranche_Age,Lien_Serveur FROM evenement";
+        String sql = "SELECT * FROM evenement";
 
         List<Event> events = new ArrayList<>();
 
         Statement stmt = con.createStatement();
 
         ResultSet rs = stmt.executeQuery(sql);
-
+        Event event;
         while (rs.next()) {
-            int eventsId = rs.getInt("Id_Events");
-            String eventsName = rs.getString("Nom_Event");
-            Date eventsDate = rs.getDate("Date_Debut");
-            int eventsDure = rs.getInt("Dure");
-            String trancheAge = rs.getString("Tranche_Age");
-            String LienServeur = rs.getString("Lien_Serveur");
-            Event event = new Event(eventsId,
-                    eventsName, eventsDate, eventsDure, trancheAge, LienServeur);
+            int eventId = rs.getInt("event_id ");
+            String eventName = rs.getString("event_name");
+            Date eventStartDate = rs.getDate("event_start_date");
+            Date eventEndDate = rs.getDate("event_end_date");
+            String eventAgeRange = rs.getString("event_age_range");
+            String eventAddress = rs.getString("event_address");
+            int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
+            int eventNumberReservation = rs.getInt("event_number_reservation");
+            String eventDescription = rs.getString("event_description");
+            int userId = rs.getInt("user_id");
+
+            event = new Event.EventBuilder().eventId(eventId).eventName(eventName).eventStartDate(eventStartDate).eventEndDate(eventEndDate).eventAgeRange(eventAgeRange).eventAddress(eventAddress)
+                    .eventMaxNumberParticipant(eventMaxNumberParticipant).eventNumberReservation(eventNumberReservation).eventDescription(eventDescription).userId(userId).build();
 
             events.add(event);
         }
@@ -85,56 +94,67 @@ public class EventDAOImp implements EventDAO {
 
     // CRUD - Create or Update
     @Override
-    public int save(Event event) throws SQLException {
-        // TODO Auto-generated method stub
+    public int save(Event event) {
         return 0;
     }
 
-// CRUD - Create
+    // CRUD - Create
     @Override
     public int insert(Event event) throws SQLException {
-        Connection con = Datasource.getConnection();
+        Connection connection = Datasource.getConnection();
+        int result = -1;
+        if (connection != null) {
+            String insertQuery = "INSERT INTO evenement (event_name, event_start_date, 	event_end_date, event_age_range,event_address, event_max_number_participant, event_number_reservation,event_description,user_id) VALUES (?, ?, ?, ?, ?, ?, ?,?,'1')";
+            PreparedStatement insertps = connection.prepareStatement(insertQuery);
 
-        String sql = "INSERT INTO evenement (Id_Events, Nom_Event, Date_Debut, Dure, Tranche_Age,Lien_Serveur) VALUES (?, ?, ?, ?, ?)";
+            insertps.setString(1, event.getEventName());
+            insertps.setDate(2, (java.sql.Date) event.getEventStartDate());
+            insertps.setDate(3, (java.sql.Date) event.getEventEndDate());
+            insertps.setString(4, event.getEventAgeRange());
+            insertps.setString(5, event.getEventAddress());
+            insertps.setInt(6, event.getEventMaxNumberParticipant());
+            insertps.setInt(7, event.getEventNumberReservation());
+            insertps.setString(8, event.getEventDescription());
+            insertps.setInt(8, event.getUserId());
 
-        PreparedStatement ps = con.prepareStatement(sql);
+            result = insertps.executeUpdate();
 
-        ps.setInt(1, event.getEventsId());
-        ps.setString(2, event.getEventsName());
-        ps.setDate(3, (java.sql.Date) event.getEventsDate());
-        ps.setInt(4, event.getEventsDure());
-
-        ps.setString(6, event.getTrancheAge());
-        ps.setString(6, event.getLienServeur());
-
-        int result = ps.executeUpdate();
-
-        Datasource.closePreparedStatement(ps);
-        Datasource.closeConnection(con);
+            Datasource.closePreparedStatement(insertps);
+        }
 
         return result;
     }
-// CRUD - Update
 
+    // CRUD - Update
     @Override
     public int update(Event event) throws SQLException {
         Connection connection = Datasource.getConnection();
+        int result = -1;
+        if (connection != null) {
+            String updateQuery = " UPDATE evenement "
+                    + " SET event_name = ?, event_start_date = ?, event_end_date = ?, event_age_range = ?, event_address = ?, event_max_number_participant = ?, event_number_reservation = ?, event_description = ?, user_id = ? "
+                    + " WHERE event_id = ?; ";
+            PreparedStatement updateps = connection.prepareStatement(updateQuery);
 
-        String sql = "UPDATE evenement set Id_Events = ?, Nom_Event = ?, Date_Debut = ?, Dure = ?, Tranche_Age = ?, Lien_Serveur = ? where id = ?";
+            
+            
+                     updateps.setString(1, event.getEventName());
+            updateps.setDate(2, (java.sql.Date) event.getEventStartDate());
+            updateps.setDate(3, (java.sql.Date) event.getEventEndDate());
+            updateps.setString(4, event.getEventAgeRange());
+            updateps.setString(5, event.getEventAddress());
+            updateps.setInt(6, event.getEventMaxNumberParticipant());
+            updateps.setInt(7, event.getEventNumberReservation());
+            updateps.setString(8, event.getEventDescription());
+            updateps.setInt(8, event.getUserId());
+            updateps.setInt(9, event.getEventId());
+            
+       
 
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, event.getEventsId());
-        ps.setString(2, event.getEventsName());
-        ps.setDate(3, (java.sql.Date) event.getEventsDate());
-        ps.setInt(4, event.getEventsDure());
+            result = updateps.executeUpdate();
 
-        ps.setString(6, event.getTrancheAge());
-        ps.setString(6, event.getLienServeur());
-
-        int result = ps.executeUpdate();
-
-        Datasource.closePreparedStatement(ps);
-        Datasource.closeConnection(connection);
+            Datasource.closePreparedStatement(updateps);
+        }
 
         return result;
     }
@@ -142,8 +162,19 @@ public class EventDAOImp implements EventDAO {
     // CRUD - Delete
     @Override
     public int delete(Event event) throws SQLException {
-        // TODO Auto-generated method stub
-        return 0;
+        Connection connection = Datasource.getConnection();
+
+        String sql = "DELETE FROM evenement WHERE event_id = ?";
+
+        PreparedStatement ps = connection.prepareStatement(sql);
+
+        ps.setInt(1, event.getEventId());
+
+        int result = ps.executeUpdate();
+
+        Datasource.closePreparedStatement(ps);
+
+        return result;
     }
 
 }

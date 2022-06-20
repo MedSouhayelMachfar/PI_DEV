@@ -11,138 +11,220 @@ import java.util.Date;
  *
  * @author user
  */
-
-
 public class Event {
-    	// Properties
-	private int eventsId;
+    // Properties
 
-  
-	private String eventsName;
-	private Date eventsDate;
-	private int eventsDure;
-	private String trancheAge;
-	private String LienServeur;
+    private int eventId;
+
+    private String eventName;
+    private Date eventStartDate;
+    private Date eventEndDate;
+
+    private String eventAgeRange;
+    private String eventAddress;
+    private int eventMaxNumberParticipant;
+    private int eventNumberReservation;
+    private String eventDescription;
+    private int userId;
+    
+    
+    // Constructors
+    	public Event() {
+		super();
+	}
 
         
+        public Event(EventBuilder eventBuilder) {
+		super();
+		this.eventId = eventBuilder.eventId;
+		this.eventName = eventBuilder.eventName;
+		this.eventStartDate = eventBuilder.eventStartDate;
+		this.eventEndDate = eventBuilder.eventEndDate;
+		this.eventAgeRange = eventBuilder.eventAgeRange;
+		this.eventAddress = eventBuilder.eventAddress;
+		this.eventMaxNumberParticipant = eventBuilder.eventMaxNumberParticipant;
+		this.eventNumberReservation = eventBuilder.eventNumberReservation;
+                this.eventDescription = eventBuilder.eventDescription;
+                this.userId = eventBuilder.userId;
+	}
+
         
-        
-          public Event() {
-        super ();
+    
+    // Getters and setters
+
+    public int getEventId() {
+        return eventId;
     }
 
-    public Event(int eventsId, String eventsName, Date eventsDate, int eventsDure, String trancheAge, String LienServeur) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public Date getEventStartDate() {
+        return eventStartDate;
+    }
+
+    public void setEventStartDate(Date eventStartDate) {
+        this.eventStartDate = eventStartDate;
+    }
+
+    public Date getEventEndDate() {
+        return eventEndDate;
+    }
+
+    public void setEventEndDate(Date eventEndDate) {
+        this.eventEndDate = eventEndDate;
+    }
+
+    public String getEventAgeRange() {
+        return eventAgeRange;
+    }
+
+    public void setEventAgeRange(String eventAgeRange) {
+        this.eventAgeRange = eventAgeRange;
+    }
+
+    public String getEventAddress() {
+        return eventAddress;
+    }
+
+    public void setEventAddress(String eventAddress) {
+        this.eventAddress = eventAddress;
+    }
+
+    public int getEventMaxNumberParticipant() {
+        return eventMaxNumberParticipant;
+    }
+
+    public void setEventMaxNumberParticipant(int eventMaxNumberParticipant) {
+        this.eventMaxNumberParticipant = eventMaxNumberParticipant;
+    }
+
+    public int getEventNumberReservation() {
+        return eventNumberReservation;
+    }
+
+    public void setEventNumberReservation(int eventNumberReservation) {
+        this.eventNumberReservation = eventNumberReservation;
+    }
+
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    
+        // Methods
 
     @Override
     public String toString() {
-        return "Event{" + "eventsId=" + eventsId + ", eventsName=" + eventsName + ", eventsDate=" + eventsDate + ", eventsDure=" + eventsDure + ", trancheAge=" + trancheAge + ", LienServeur=" + LienServeur + '}';
+        return "Event{" + "eventId=" + eventId + ", eventName=" + eventName + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate + ", eventAgeRange=" + eventAgeRange + ", eventAddress=" + eventAddress + ", eventMaxNumberParticipant=" + eventMaxNumberParticipant + ", eventNumberReservation=" + eventNumberReservation + ", eventDescription=" + eventDescription + ", userId=" + userId + '}';
     }
-
-    public Event(int eventsId, String eventsName, int eventsDure, String trancheAge, String LienServeur) {
-        this.eventsId = eventsId;
-        this.eventsName = eventsName;
-        this.eventsDure = eventsDure;
-        this.trancheAge = trancheAge;
-        this.LienServeur = LienServeur;
-    }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    /**
-     * @return the eventsId
-     */
-    public int getEventsId() {
-        return eventsId;
-    }
-
-    /**
-     * @param eventsId the eventsId to set
-     */
-    public void setEventsId(int eventsId) {
-        this.eventsId = eventsId;
-    }
-
-    /**
-     * @return the eventsName
-     */
-    public String getEventsName() {
-        return eventsName;
-    }
-
-    /**
-     * @param eventsName the eventsName to set
-     */
-    public void setEventsName(String eventsName) {
-        this.eventsName = eventsName;
-    }
-
-    /**
-     * @return the eventsDate
-     */
-    public Date getEventsDate() {
-        return eventsDate;
-    }
-
-    /**
-     * @param eventsDate the eventsDate to set
-     */
-    public void setEventsDate(Date eventsDate) {
-        this.eventsDate = eventsDate;
-    }
-
-    /**
-     * @return the eventsDure
-     */
-    public int getEventsDure() {
-        return eventsDure;
-    }
-
-    /**
-     * @param eventsDure the eventsDure to set
-     */
-    public void setEventsDure(int eventsDure) {
-        this.eventsDure = eventsDure;
-    }
-
-    /**
-     * @return the trancheAge
-     */
-    public String getTrancheAge() {
-        return trancheAge;
-    }
-
-    /**
-     * @param trancheAge the trancheAge to set
-     */
-    public void setTrancheAge(String trancheAge) {
-        this.trancheAge = trancheAge;
-    }
-
-    /**
-     * @return the LienServeur
-     */
-    public String getLienServeur() {
-        return LienServeur;
-    }
-
-    /**
-     * @param LienServeur the LienServeur to set
-     */
-    public void setLienServeur(String LienServeur) {
-        this.LienServeur = LienServeur;
-    }
-
+    // Event builder
     
+    public static class EventBuilder {
+		 private int eventId;
+
+    private String eventName;
+    private Date eventStartDate;
+    private Date eventEndDate;
+
+    private String eventAgeRange;
+    private String eventAddress;
+    private int eventMaxNumberParticipant;
+    private int eventNumberReservation;
+    private String eventDescription;
+    private int userId;
+    
+
+		public EventBuilder() {
+			super();
+		}
+
+      
+
+		public EventBuilder eventId(int eventId) {
+			this.eventId = eventId;
+			return this;
+		}
+
+		public EventBuilder eventName(String eventName) {
+			this.eventName = eventName;
+			return this;
+		}
+		
+		public EventBuilder eventStartDate(Date eventStartDate) {
+			this.eventStartDate = eventStartDate;
+			return this;
+		}
+
+		public EventBuilder eventEndDate(Date eventEndDate) {
+			this.eventEndDate = eventEndDate;
+			return this;
+		}
+
+		public EventBuilder eventAgeRange(String eventAgeRange) {
+			this.eventAgeRange = eventAgeRange;
+			return this;
+		}
+
+		public EventBuilder eventAddress(String eventAddress) {
+			this.eventAddress = eventAddress;
+			return this;
+		}
+		public EventBuilder eventMaxNumberParticipant(int eventMaxNumberParticipant) {
+			this.eventMaxNumberParticipant = eventMaxNumberParticipant;
+			return this;
+		}
+
+		public EventBuilder eventNumberReservation(int eventNumberReservation) {
+			this.eventNumberReservation = eventNumberReservation;
+			return this;
+		}
+                
+                
+		public EventBuilder eventDescription(String eventDescription) {
+			this.eventDescription = eventDescription;
+			return this;
+		}
+                
+                
+		public EventBuilder userId(int userId) {
+			this.userId = userId;
+			return this;
+		}
+
+		// Return the finally constructed User object
+		public Event build() {
+			Event event = new Event(this);
+			validateUserObject(event);
+			return event;
+		}
+
+		private void validateUserObject(Event event) {
+			// Do some basic validations to check
+			// if user object does not break any assumption of system
+		}
+	}
+
 }
