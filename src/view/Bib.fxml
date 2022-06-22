@@ -2,6 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,14 +32,36 @@
                </image></ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="613.0" prefWidth="1000.0">
+      <AnchorPane prefHeight="621.0" prefWidth="1000.0">
          <children>
-            <Text fx:id="label_content" layoutX="407.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER" wrappingWidth="158.576171875">
+            <Text fx:id="label_content" layoutX="243.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER" wrappingWidth="158.576171875">
                <font>
                   <Font size="29.0" />
                </font>
             </Text>
-            <Button fx:id="getmetheuser" layoutX="167.0" layoutY="188.0" mnemonicParsing="false" text="get me the user " />
+            <Button fx:id="getmetheuser" layoutX="97.0" layoutY="363.0" mnemonicParsing="false" text="get me the user " />
+            <AnchorPane layoutY="-2.0" prefHeight="258.0" prefWidth="1000.0" style="-fx-background-color: #bababa;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Liste des événements" textFill="#2084d0">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="addEvent" layoutX="927.0" layoutY="14.0" mnemonicParsing="false" text="Ajouter " />
+                  <TableView layoutX="149.0" layoutY="81.0" prefHeight="163.0" prefWidth="760.0">
+                    <columns>
+                      <TableColumn prefWidth="113.0" text="Nom Evenement" />
+                      <TableColumn prefWidth="112.0" text="Date debut " />
+                        <TableColumn prefWidth="112.0" text="Date Fin" />
+                        <TableColumn prefWidth="112.0" text="Tranche d'age " />
+                        <TableColumn prefWidth="155.0" text="adresse de l'evenement" />
+                        <TableColumn prefWidth="155.0" text="Description" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="693.0" layoutY="18.0" prefHeight="17.0" prefWidth="59.0" text="rechercher" textFill="#f8f5f5" />
+                  <TextField layoutX="760.0" layoutY="14.0" />
+               </children>
+            </AnchorPane>
          </children></AnchorPane>
    </children>
 </VBox>

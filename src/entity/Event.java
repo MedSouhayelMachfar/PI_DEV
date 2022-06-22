@@ -25,38 +25,32 @@ public class Event {
     private int eventMaxNumberParticipant;
     private int eventNumberReservation;
     private String eventDescription;
-    
+
     private int userId;
-    
-    
+
     // Constructors
-    	public Event() {
-		
-	}
+    public Event() {
 
-        
-        public Event(EventBuilder eventBuilder) {
-		super();
-		this.eventId = eventBuilder.eventId;
-		this.eventName = eventBuilder.eventName;
-		this.eventStartDate = eventBuilder.eventStartDate;
-		this.eventEndDate = eventBuilder.eventEndDate;
-		this.eventAgeRange = eventBuilder.eventAgeRange;
-		this.eventAddress = eventBuilder.eventAddress;
-		this.eventMaxNumberParticipant = eventBuilder.eventMaxNumberParticipant;
-		this.eventNumberReservation = eventBuilder.eventNumberReservation;
-                this.eventDescription = eventBuilder.eventDescription;
-                this.userId = eventBuilder.userId;
-	}
+    }
 
-        
-    
+    public Event(EventBuilder eventBuilder) {
+
+        this.eventId = eventBuilder.eventId;
+        this.eventName = eventBuilder.eventName;
+        this.eventStartDate = eventBuilder.eventStartDate;
+        this.eventEndDate = eventBuilder.eventEndDate;
+        this.eventAgeRange = eventBuilder.eventAgeRange;
+        this.eventAddress = eventBuilder.eventAddress;
+        this.eventMaxNumberParticipant = eventBuilder.eventMaxNumberParticipant;
+        this.eventNumberReservation = eventBuilder.eventNumberReservation;
+        this.eventDescription = eventBuilder.eventDescription;
+        this.userId = eventBuilder.userId;
+    }
+
     // Getters and setters
-
     public int getEventId() {
         return eventId;
     }
-
 
     public void setEventId(int eventId) {
         this.eventId = eventId;
@@ -133,99 +127,98 @@ public class Event {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
-    
-        // Methods
 
+    // Methods
     @Override
     public String toString() {
         return "Event{" + "eventId=" + eventId + ", eventName=" + eventName + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate + ", eventAgeRange=" + eventAgeRange + ", eventAddress=" + eventAddress + ", eventMaxNumberParticipant=" + eventMaxNumberParticipant + ", eventNumberReservation=" + eventNumberReservation + ", eventDescription=" + eventDescription + ", userId=" + userId + '}';
     }
     // Event builder
-    
+
     public static class EventBuilder {
-		 private int eventId;
 
-    private String eventName;
-    private Date eventStartDate;
-    private Date eventEndDate;
+        private int eventId;
 
-    private String eventAgeRange;
-    private String eventAddress;
-    private int eventMaxNumberParticipant;
-    private int eventNumberReservation;
-    private String eventDescription;
-    private int userId;
-    
+        private String eventName;
+        private Date eventStartDate;
+        private Date eventEndDate;
 
-		public EventBuilder() {
-			super();
-		}
+        private String eventAgeRange;
+        private String eventAddress;
+        public int eventMaxNumberParticipant;
+        private int eventNumberReservation;
+        private String eventDescription;
+        private int userId;
 
-      
+        public EventBuilder() {
+            super();
+        }
 
-		public EventBuilder eventId(int eventId) {
-			this.eventId = eventId;
-			return this;
-		}
+        public EventBuilder(String text, String text0, String text1, String text2, String text3, java.sql.Date valueOf) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-		public EventBuilder eventName(String eventName) {
-			this.eventName = eventName;
-			return this;
-		}
-		
-		public EventBuilder eventStartDate(Date eventStartDate) {
-			this.eventStartDate = eventStartDate;
-			return this;
-		}
+        public EventBuilder eventId(int eventId) {
+            this.eventId = eventId;
+            return this;
+        }
 
-		public EventBuilder eventEndDate(Date eventEndDate) {
-			this.eventEndDate = eventEndDate;
-			return this;
-		}
+        public EventBuilder eventName(String eventName) {
+            this.eventName = eventName;
+            return this;
+        }
 
-		public EventBuilder eventAgeRange(String eventAgeRange) {
-			this.eventAgeRange = eventAgeRange;
-			return this;
-		}
+        public EventBuilder eventStartDate(Date eventStartDate) {
+            this.eventStartDate = eventStartDate;
+            return this;
+        }
 
-		public EventBuilder eventAddress(String eventAddress) {
-			this.eventAddress = eventAddress;
-			return this;
-		}
-		public EventBuilder eventMaxNumberParticipant(int eventMaxNumberParticipant) {
-			this.eventMaxNumberParticipant = eventMaxNumberParticipant;
-			return this;
-		}
+        public EventBuilder eventEndDate(Date eventEndDate) {
+            this.eventEndDate = eventEndDate;
+            return this;
+        }
 
-		public EventBuilder eventNumberReservation(int eventNumberReservation) {
-			this.eventNumberReservation = eventNumberReservation;
-			return this;
-		}
-                
-                
-		public EventBuilder eventDescription(String eventDescription) {
-			this.eventDescription = eventDescription;
-			return this;
-		}
-                
-                
-		public EventBuilder userId(int userId) {
-			this.userId = userId;
-			return this;
-		}
+        public EventBuilder eventAgeRange(String eventAgeRange) {
+            this.eventAgeRange = eventAgeRange;
+            return this;
+        }
 
-		// Return the finally constructed User object
-		public Event build() {
-			Event event = new Event(this);
-			validateUserObject(event);
-			return event;
-		}
+        public EventBuilder eventAddress(String eventAddress) {
+            this.eventAddress = eventAddress;
+            return this;
+        }
 
-		private void validateUserObject(Event event) {
-			// Do some basic validations to check
-			// if user object does not break any assumption of system
-		}
-	}
+        public EventBuilder eventMaxNumberParticipant(int eventMaxNumberParticipant) {
+            this.eventMaxNumberParticipant = eventMaxNumberParticipant;
+            return this;
+        }
+
+        public EventBuilder eventNumberReservation(int eventNumberReservation) {
+            this.eventNumberReservation = eventNumberReservation;
+            return this;
+        }
+
+        public EventBuilder eventDescription(String eventDescription) {
+            this.eventDescription = eventDescription;
+            return this;
+        }
+
+        public EventBuilder userId(int userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        // Return the finally constructed User object
+        public Event build() {
+            Event event = new Event(this);
+            validateUserObject(event);
+            return event;
+        }
+
+        private void validateUserObject(Event event) {
+            // Do some basic validations to check
+            // if user object does not break any assumption of system
+        }
+    }
 
 }

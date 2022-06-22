@@ -38,6 +38,11 @@ public class BibController implements Initializable {
 	private Button getmetheuser;
 	@FXML 
 	private Text label_content;
+        @FXML 
+	private Button addEvent;
+        
+        
+        
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -75,6 +80,14 @@ public class BibController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				label_content.setText(AuthService.loggedInUser.toString());
+			}
+		});
+                
+                //add Melek 
+                addEvent.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				SceneManager.changeScene(event, "ajouteEvent.fxml", "Event", null);
 			}
 		});
 
