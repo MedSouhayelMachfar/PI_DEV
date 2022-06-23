@@ -20,6 +20,7 @@ public class Event {
     private Date eventStartDate;
     private Date eventEndDate;
 
+
     private String eventAgeRange;
     private String eventAddress;
     private int eventMaxNumberParticipant;

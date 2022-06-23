@@ -3,8 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/utils/SceneManager.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/view/ajouteEvent.fxml</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/entity/User.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/UserDAOImpl.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/AuthService.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/NotifController.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/EventDAOImp.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/UserDAO.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/HomeController.java</file>
             <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/addEventeController.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/ForumController.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/BibController.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/LogInController.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/entity/Event.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/SignUpController.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/application/Main.java</file>
+            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/application/Testing.java</file>
         </group>
     </open-files>
 </project-private>

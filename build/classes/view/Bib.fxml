@@ -48,14 +48,14 @@
                      </font>
                   </Label>
                   <Button fx:id="addEvent" layoutX="927.0" layoutY="14.0" mnemonicParsing="false" text="Ajouter " />
-                  <TableView layoutX="149.0" layoutY="81.0" prefHeight="163.0" prefWidth="760.0">
+                  <TableView fx:id="TableEventList" layoutX="149.0" layoutY="81.0" prefHeight="163.0" prefWidth="760.0">
                     <columns>
-                      <TableColumn prefWidth="113.0" text="Nom Evenement" />
-                      <TableColumn prefWidth="112.0" text="Date debut " />
-                        <TableColumn prefWidth="112.0" text="Date Fin" />
-                        <TableColumn prefWidth="112.0" text="Tranche d'age " />
-                        <TableColumn prefWidth="155.0" text="adresse de l'evenement" />
-                        <TableColumn prefWidth="155.0" text="Description" />
+                      <TableColumn fx:id="eventName" prefWidth="113.0" text="Nom Evenement" />
+                      <TableColumn fx:id="dateDebut" prefWidth="112.0" text="Date debut " />
+                        <TableColumn fx:id="dateFin" prefWidth="112.0" text="Date Fin" />
+                        <TableColumn fx:id="TrancheAge" prefWidth="112.0" text="Tranche d'age " />
+                        <TableColumn fx:id="adresseEvent" prefWidth="155.0" text="adresse de l'evenement" />
+                        <TableColumn fx:id="descp" prefWidth="155.0" text="Description" />
                     </columns>
                   </TableView>
                   <Label layoutX="693.0" layoutY="18.0" prefHeight="17.0" prefWidth="59.0" text="rechercher" textFill="#f8f5f5" />
