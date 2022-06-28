@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -69,11 +72,10 @@ public class BibController implements Initializable {
     @FXML
     private TableColumn<Event, Date> dateFin;
 
-    @FXML
-    private TableColumn<Event, String> descp;
-       @FXML
-    private TableColumn<Event, String> filterFiled;
+   
     
+    @FXML
+    private TextField filterFiled;
 
     @FXML
     private TableColumn<Event, Event> action;
@@ -143,7 +145,7 @@ public class BibController implements Initializable {
         dateFin.setCellValueFactory(new PropertyValueFactory<>("eventEndDate"));
         TrancheAge.setCellValueFactory(new PropertyValueFactory<>("eventAgeRange"));
         adresseEvent.setCellValueFactory(new PropertyValueFactory<>("eventAddress"));
-        descp.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+  
 
         List<Event> list = new ArrayList<>();
         try {
@@ -160,66 +162,108 @@ public class BibController implements Initializable {
         dateFin.setCellValueFactory(new PropertyValueFactory<>("eventEndDate"));
         TrancheAge.setCellValueFactory(new PropertyValueFactory<>("eventAgeRange"));
         adresseEvent.setCellValueFactory(new PropertyValueFactory<>("eventAddress"));
-        descp.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
 
         TableEventList.setItems(FXCollections.observableArrayList(listEvent));
-        Callback<TableColumn<Event, Event>, TableCell<Event, Event>> cellFactory = new Callback<TableColumn<Event, Event>, TableCell<Event, Event>>() {
-            @Override
-            public TableCell call(final TableColumn<Event, Event> param) {
-                final TableCell<Event, Event> cell = new TableCell<Event, Event>() {
 
-                    @Override
-                    public void updateItem(Event item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            final Button editBtn = new Button("EDIT");
-                            final Button dltBtn = new Button("DELETE");
-                            editBtn.setOnAction(event -> {
-                                // saveButton.setText("UPDATE");
-                                //  selectedRegisterModel = getTableView().getItems().get(getIndex());
-                                //  usernameField.setText( selectedRegisterModel.getUsername());
-                                //  passwordField.setText( selectedRegisterModel.getPassword());
-                                //  System.out.println("selected"+ selectedRegisterModel.getId()+ selectedRegisterModel.getRegisterModelname());
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Event> filteredData = new FilteredList<>(listEvent, b -> true);
 
-                            });
-                            dltBtn.setOnAction(event -> {
-                                try {
-                                    eventselected = getTableView().getItems().get(getIndex());
+        // 2. Set the filter Predicate whenever the filter changes.
+        filterFiled.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(event -> {
+                // If filter text is empty, display all persons.
 
-                                    System.out.println("aliiiii" + eventselected);
-                                    e1.delete(eventselected);
-                                    TableEventList.setItems(FXCollections.observableArrayList(e1.getAll()));
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
-                                    AlertModal.showErrorAlert(null, "your event is delete!");
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
 
-                                } catch (SQLException ex) {
-                                    Logger.getLogger(BibController.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-
-                            });
-
-                            HBox hb = new HBox();
-                            hb.setSpacing(2);
-                            hb.getChildren().addAll(editBtn, dltBtn);
-                            setGraphic(hb);
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
-
-            }
-        };
-
-        action.setCellFactory(cellFactory);
-
+                if (event.getEventName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches first name.
+                }
+            else if (event.getEventAddress().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(event.getEventAgeRange()).indexOf(lowerCaseFilter)!=-1)
+				     return true;
+				     else  
+				    	 return false; // Does not match.
+        });
     }
+    );
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Event> sortedData = new SortedList<>(filteredData);
 
-    // Setting user info passed from login screen
-    public void setUserInformation(int id_user, String first_name, String last_name, String email) {
+    // 4. Bind the SortedList comparator to the TableView comparator.
+    // 	  Otherwise, sorting the TableView would have no effect.
+    sortedData.comparatorProperty ()
+
+    .bind(TableEventList.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+    TableEventList.setItems (sortedData);
+
+    Callback<TableColumn<Event, Event>, TableCell<Event, Event>> cellFactory = new Callback<TableColumn<Event, Event>, TableCell<Event, Event>>() {
+        @Override
+        public TableCell call(final TableColumn<Event, Event> param) {
+            final TableCell<Event, Event> cell = new TableCell<Event, Event>() {
+
+                @Override
+                public void updateItem(Event item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        final Button editBtn = new Button("UPDATE");
+                        final Button dltBtn = new Button("DELETE");
+                        editBtn.setOnAction(event -> {
+                             SceneManager.changeScene(event, "updateEvent.fxml", "UpdateEvent", null);
+                           //  saveButton.setText("UPDATE");
+                            //  selectedRegisterModel = getTableView().getItems().get(getIndex());
+                            //  usernameField.setText( selectedRegisterModel.getUsername());
+                            //  passwordField.setText( selectedRegisterModel.getPassword());
+                            //  System.out.println("selected"+ selectedRegisterModel.getId()+ selectedRegisterModel.getRegisterModelname());
+
+                        });
+                        dltBtn.setOnAction(event -> {
+                            try {
+                                eventselected = getTableView().getItems().get(getIndex());
+
+                                System.out.println("aliiiii" + eventselected);
+                                e1.delete(eventselected);
+                                TableEventList.setItems(FXCollections.observableArrayList(e1.getAll()));
+
+                                AlertModal.showErrorAlert(null, "your event is delete!");
+
+                            } catch (SQLException ex) {
+                                Logger.getLogger(BibController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                        });
+
+                        HBox hb = new HBox();
+                        hb.setSpacing(2);
+                        hb.getChildren().addAll(editBtn, dltBtn);
+                        setGraphic(hb);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+
+        }
+    };
+
+    action.setCellFactory (cellFactory);
+
+}
+
+// Setting user info passed from login screen
+public void setUserInformation(int id_user, String first_name, String last_name, String email) {
         label_welcome.setText(last_name);
         System.out.println(AuthService.loggedInUser);
     }

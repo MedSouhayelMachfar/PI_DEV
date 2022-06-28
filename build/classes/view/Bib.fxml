@@ -55,12 +55,11 @@
                         <TableColumn fx:id="dateFin" prefWidth="112.0" text="Date Fin" />
                         <TableColumn fx:id="TrancheAge" prefWidth="112.0" text="Tranche d'age " />
                         <TableColumn fx:id="adresseEvent" prefWidth="155.0" text="adresse de l'evenement" />
-                        <TableColumn fx:id="descp" prefWidth="75.0" text="Description" />
-                        <TableColumn fx:id="action" prefWidth="98.0" text="Action" />
+                        <TableColumn fx:id="action" prefWidth="172.0" text="Action" />
                     </columns>
                   </TableView>
                   <Label layoutX="693.0" layoutY="18.0" prefHeight="17.0" prefWidth="59.0" text="rechercher" textFill="#f8f5f5" />
-                  <TextField layoutX="760.0" layoutY="14.0" />
+                  <TextField fx:id="filterFiled" layoutX="760.0" layoutY="14.0" />
                </children>
             </AnchorPane>
          </children></AnchorPane>
