@@ -6,6 +6,7 @@
 package entity;
 
 import java.util.Date;
+import service.EventDAOImp;
 
 /**
  *
@@ -135,6 +136,10 @@ public class Event {
         return "Event{" + "eventId=" + eventId + ", eventName=" + eventName + ", eventStartDate=" + eventStartDate + ", eventEndDate=" + eventEndDate + ", eventAgeRange=" + eventAgeRange + ", eventAddress=" + eventAddress + ", eventMaxNumberParticipant=" + eventMaxNumberParticipant + ", eventNumberReservation=" + eventNumberReservation + ", eventDescription=" + eventDescription + ", userId=" + userId + '}';
     }
     // Event builder
+
+    public void delete(EventDAOImp e2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public static class EventBuilder {
 

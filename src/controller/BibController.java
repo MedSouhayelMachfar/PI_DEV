@@ -18,12 +18,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import service.AuthService;
 import service.EventDAOImp;
+import utils.AlertModal;
 import utils.SceneManager;
 
 public class BibController implements Initializable {
@@ -67,12 +71,18 @@ public class BibController implements Initializable {
 
     @FXML
     private TableColumn<Event, String> descp;
+       @FXML
+    private TableColumn<Event, String> filterFiled;
+    
 
+    @FXML
+    private TableColumn<Event, Event> action;
     @FXML
     private TableColumn<Event, String> eventName;
     @FXML
 
     private TableView<Event> TableEventList;
+    Event eventselected;
 
     ObservableList<Event> listEvent;
 
@@ -122,31 +132,89 @@ public class BibController implements Initializable {
                 SceneManager.changeScene(event, "ajouteEvent.fxml", "Event", null);
             }
         });
-     
-        
-            
-             //add melek
+        buildTableAndData();
+    }
+
+    private void buildTableAndData() {
+        //add melek
         EventDAOImp e1 = new EventDAOImp();
-            List<Event> list = new ArrayList<>();
-            try {
-                list = e1.getAll();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        eventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        dateDebut.setCellValueFactory(new PropertyValueFactory<>("eventStartDate"));
+        dateFin.setCellValueFactory(new PropertyValueFactory<>("eventEndDate"));
+        TrancheAge.setCellValueFactory(new PropertyValueFactory<>("eventAgeRange"));
+        adresseEvent.setCellValueFactory(new PropertyValueFactory<>("eventAddress"));
+        descp.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
+        List<Event> list = new ArrayList<>();
+        try {
+            list = e1.getAll();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        listEvent = FXCollections.observableArrayList(list);
+        System.out.println(list);
+
+        eventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        dateDebut.setCellValueFactory(new PropertyValueFactory<>("eventStartDate"));
+        dateFin.setCellValueFactory(new PropertyValueFactory<>("eventEndDate"));
+        TrancheAge.setCellValueFactory(new PropertyValueFactory<>("eventAgeRange"));
+        adresseEvent.setCellValueFactory(new PropertyValueFactory<>("eventAddress"));
+        descp.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
+
+        TableEventList.setItems(FXCollections.observableArrayList(listEvent));
+        Callback<TableColumn<Event, Event>, TableCell<Event, Event>> cellFactory = new Callback<TableColumn<Event, Event>, TableCell<Event, Event>>() {
+            @Override
+            public TableCell call(final TableColumn<Event, Event> param) {
+                final TableCell<Event, Event> cell = new TableCell<Event, Event>() {
+
+                    @Override
+                    public void updateItem(Event item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            final Button editBtn = new Button("EDIT");
+                            final Button dltBtn = new Button("DELETE");
+                            editBtn.setOnAction(event -> {
+                                // saveButton.setText("UPDATE");
+                                //  selectedRegisterModel = getTableView().getItems().get(getIndex());
+                                //  usernameField.setText( selectedRegisterModel.getUsername());
+                                //  passwordField.setText( selectedRegisterModel.getPassword());
+                                //  System.out.println("selected"+ selectedRegisterModel.getId()+ selectedRegisterModel.getRegisterModelname());
+
+                            });
+                            dltBtn.setOnAction(event -> {
+                                try {
+                                    eventselected = getTableView().getItems().get(getIndex());
+
+                                    System.out.println("aliiiii" + eventselected);
+                                    e1.delete(eventselected);
+                                    TableEventList.setItems(FXCollections.observableArrayList(e1.getAll()));
+
+                                    AlertModal.showErrorAlert(null, "your event is delete!");
+
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(BibController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                            });
+
+                            HBox hb = new HBox();
+                            hb.setSpacing(2);
+                            hb.getChildren().addAll(editBtn, dltBtn);
+                            setGraphic(hb);
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+
             }
-            listEvent = FXCollections.observableArrayList(list);
-            System.out.println(list);
+        };
 
-            eventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
-            dateDebut.setCellValueFactory(new PropertyValueFactory<>("eventStartDate"));
-            dateFin.setCellValueFactory(new PropertyValueFactory<>("eventEndDate"));
-            TrancheAge.setCellValueFactory(new PropertyValueFactory<>("eventAgeRange"));
-            adresseEvent.setCellValueFactory(new PropertyValueFactory<>("eventAddress"));
-            descp.setCellValueFactory(new PropertyValueFactory<>("eventDescription"));
-           
-              TableEventList.setItems(FXCollections.observableArrayList(listEvent));
-
-        
+        action.setCellFactory(cellFactory);
 
     }
 
