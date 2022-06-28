@@ -15,7 +15,7 @@
          <children>
             <Pane prefHeight="104.0" prefWidth="1000.0" style="-fx-background-color: #3a7ead;">
                <children>
-                  <Label layoutX="35.0" layoutY="28.0" text="Ajouter un événement" textFill="#fffdfd">
+                  <Label layoutX="35.0" layoutY="28.0" text="Edit événement" textFill="#fffdfd">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
