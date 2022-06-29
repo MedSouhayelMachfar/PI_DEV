@@ -136,10 +136,10 @@ public class EventDAOImp implements EventDAO {
                     + " SET event_name = ?, event_start_date = ?, event_end_date = ?, event_age_range = ?, event_address = ?, event_max_number_participant = ?, event_number_reservation = ?, event_description = ?, user_id = ? "
                     + " WHERE event_id = ?";
             PreparedStatement updateps = connection.prepareStatement(updateQuery);
-           // updateps.setInt(1, event.getEventId());
+          
             
             
-            /*updateps.setString(1, event.getEventName());
+            updateps.setString(1, event.getEventName());
             updateps.setDate(2, (java.sql.Date) event.getEventStartDate());
             updateps.setDate(3, (java.sql.Date) event.getEventEndDate());
             updateps.setString(4, event.getEventAgeRange());
@@ -148,22 +148,11 @@ public class EventDAOImp implements EventDAO {
             updateps.setInt(7, event.getEventNumberReservation());
             updateps.setString(8, event.getEventDescription());
             updateps.setInt(9, event.getUserId());
-            updateps.setInt(10, event.getEventId());*/
-            updateps.setString(1, "jobi11112 ");
-            updateps.setDate(2, (java.sql.Date) event.getEventStartDate());
-            updateps.setDate(3, (java.sql.Date) event.getEventEndDate());
-            updateps.setString(4, "30");
-            updateps.setString(5, "Gammarat");
-            updateps.setInt(6, 5);
-            updateps.setInt(7, 4);
-            updateps.setString(8, "Holly shit");
-            updateps.setInt(9, 1);
             updateps.setInt(10, event.getEventId());
-            
+        
        
 
             result = updateps.executeUpdate();
-
             Datasource.closePreparedStatement(updateps);
         }
         System.out.println("query succeeded"+event.getEventId());
