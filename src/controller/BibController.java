@@ -41,7 +41,8 @@ public class BibController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		label_welcome.setText(AuthService.loggedInUser.getFirstName());
+		
 		button_logout.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

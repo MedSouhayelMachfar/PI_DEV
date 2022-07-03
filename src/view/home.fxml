@@ -16,7 +16,7 @@
    <children>
       <AnchorPane prefHeight="106.0" prefWidth="1018.0" style="-fx-border-color: #000; -fx-background-color: #E4E4E4;">
          <children>
-            <Label fx:id="label_welcome" layoutX="827.0" layoutY="39.0" text="foulen">
+            <Label fx:id="label_welcome" layoutX="827.0" layoutY="39.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -25,7 +25,7 @@
             <Button fx:id="button_nav_forum" layoutX="220.0" layoutY="20.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Forum" />
             <Button fx:id="button_nav_bib" layoutX="390.0" layoutY="20.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Bibliothèque" />
             <Button fx:id="button_nav_notif" layoutX="560.0" layoutY="20.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Notif" />
-            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="733.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profile_image" fitHeight="70.0" fitWidth="70.0" layoutX="733.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/avatar.png" />
                </image></ImageView>

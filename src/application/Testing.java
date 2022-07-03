@@ -1,22 +1,23 @@
 package application;
 
-import java.sql.SQLException;
-
-import entity.User;
-import service.UserDAOImpl;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class Testing {
 
-	public static void main(String[] args) {
-		UserDAOImpl u1 = new UserDAOImpl();
-		User myUser = new User.UserBuilder().userId(1).firstName("malek").lastName("58").email("saa").password("azeaze").build();
-		
-		try {
-			System.out.println(u1.insert(myUser));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:3030/api/v1"))
+                .GET()
+                .build();
 
+        HttpResponse<Void> response = client.send(request,
+                HttpResponse.BodyHandlers.discarding());
+
+        System.out.println(response.statusCode());
+    }
 }

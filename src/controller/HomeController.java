@@ -13,12 +13,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import service.AuthService;
 import utils.SceneManager;
 
 public class HomeController implements Initializable {
 
+	
+	@FXML
+	private ImageView profile_image;
+	
 	@FXML
 	private Menu customMenu;
 
@@ -60,13 +66,19 @@ public class HomeController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		label_welcome.setText(AuthService.loggedInUser.getLastName());
+		if(AuthService.loggedInUser.getUserImage().equals("")) {
+			AuthService.loggedInUser.setUserImage( "avatar.png");
+		}
+		String imageSource = "http://localhost:3030/api/v1/users/image/"+AuthService.loggedInUser.getUserImage();
+		profile_image.setImage(new Image(imageSource));
 		// Hide functionality for simple users
-		if(!AuthService.loggedInUser.getRole().equals("admin")) {
+		if (!AuthService.loggedInUser.getRole().equals("admin")) {
 			item_annonce.setVisible(false);
 			item_event.setVisible(false);
 			item_compte.setVisible(false);
 		}
-		
+
 		customMenu.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -114,7 +126,6 @@ public class HomeController implements Initializable {
 				SceneManager.changeScene(event, "notif.fxml", "Notification", null);
 			}
 		});
-
 	}
 
 	// Setting user info passed from login screen
