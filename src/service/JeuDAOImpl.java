@@ -46,7 +46,7 @@ public class JeuDAOImpl implements JeuDAO {
 
 		Datasource.closeResultSet(rs);
 		Datasource.closePreparedStatement(ps);
-		Datasource.closeConnection(con);
+		//Datasource.closeConnection(con);
 
 		return Jeu;
 	}
@@ -174,4 +174,9 @@ public class JeuDAOImpl implements JeuDAO {
    return  datax;
 	
 }
+
+	public Object getString(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

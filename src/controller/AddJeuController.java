@@ -1,19 +1,17 @@
 package controller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import entity.Jeu;
 import service.AuthService;
 import service.JeuDAOImpl;
@@ -42,7 +40,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-
 import javafx.stage.Stage;
 
 public class AddJeuController implements Initializable {
@@ -118,6 +115,8 @@ public class AddJeuController implements Initializable {
 
     @FXML
     private Button getmetheuser;
+    
+   
 
    
 	
@@ -150,9 +149,16 @@ public class AddJeuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		/*if(!AuthService.loggedInUser.getRole().equals("admin")) {
+			item_annonce.setVisible(false);
+			item_event.setVisible(false);
+			item_compte.setVisible(false);
+		}*/
 		label_welcome.setText(AuthService.loggedInUser.getFirstName());
 
 		search();
+		
+		
 
 		next.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -258,8 +264,8 @@ public class AddJeuController implements Initializable {
 		fc.getExtensionFilters().add(new ExtensionFilter("image Files", "*.jpg", "*.png"));
 		File f = fc.showOpenDialog(null);
 		if (f != null) {
-			//lab_url.setText(f.getAbsolutePath());
-			lab_url.setText(f.getPath());
+			lab_url.setText(f.getAbsolutePath());
+			//lab_url.setText(f.getPath());
 			Image image = new Image(f.toURI().toString(), 270, 225, true, true);
 			img.setImage(image);
 		}
@@ -322,6 +328,7 @@ public class AddJeuController implements Initializable {
 	@FXML
 	void getSelected(MouseEvent event) {
 		index = jeu.getSelectionModel().getSelectedIndex();
+		
 		if (index <= -1) {
 
 			return;
@@ -330,8 +337,9 @@ public class AddJeuController implements Initializable {
 		nametxt.setText(name.getCellData(index).toString());
 		cbcat.setPromptText(cat.getCellData(index).toString());
 		lab_url.setText(picture.getCellData(index).toString());
-		
-		
+		Image image= new Image(lab_url.getText());
+		img.setImage(image);
+		 
 	}
 
 	@FXML

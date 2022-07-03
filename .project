@@ -20,11 +20,4 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/application/app.js</name>
-			<type>1</type>
-			<location>C:/Users/21698/Desktop/myapp4/app.js</location>
-		</link>
-	</linkedResources>
 </projectDescription>

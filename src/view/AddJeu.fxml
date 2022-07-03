@@ -61,12 +61,12 @@
             <Button fx:id="afficher" layoutX="514.0" layoutY="308.0" mnemonicParsing="false" onAction="#ViewJeu" prefHeight="27.0" prefWidth="126.0" text="Afficher Jeux" />
             <Button fx:id="update" layoutX="514.0" layoutY="344.0" mnemonicParsing="false" onAction="#Update" prefHeight="27.0" prefWidth="126.0" text="Update" />
             <Button fx:id="delete" layoutX="514.0" layoutY="379.0" mnemonicParsing="false" onAction="#DeleteJeu" prefHeight="27.0" prefWidth="126.0" text="Delete" />
-            <Label layoutX="88.0" layoutY="28.0" text="ID" textFill="#f39659">
+            <Label layoutX="88.0" layoutY="28.0" text="ID" textFill="#f39659" visible="false">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_id" layoutX="88.0" layoutY="55.0" opacity="0.9" prefHeight="27.0" prefWidth="70.0" />
+            <TextField fx:id="txt_id" layoutX="88.0" layoutY="55.0" opacity="0.9" prefHeight="27.0" prefWidth="70.0" visible="false" />
             <TextField fx:id="Search" layoutX="23.0" layoutY="262.0" onAction="#search" promptText="Search" />
             <Button fx:id="next" layoutX="514.0" layoutY="423.0" mnemonicParsing="false" onMouseClicked="#GoJeux" prefHeight="27.0" prefWidth="126.0" text="Mes Jeux" />
          </children>
