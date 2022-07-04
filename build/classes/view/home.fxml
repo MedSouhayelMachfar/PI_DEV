@@ -52,6 +52,7 @@
                   <Font size="29.0" />
                </font>
             </Text>
+            <Button fx:id="go_event" layoutX="123.0" layoutY="134.0" mnemonicParsing="false" text="go event reservation" />
          </children></AnchorPane>
    </children>
 </VBox>

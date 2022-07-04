@@ -5,7 +5,7 @@
  */
 package entity;
 
-import java.util.Date;
+import java.sql.Date;
 import service.EventDAOImp;
 
 /**
@@ -33,6 +33,19 @@ public class Event {
     // Constructors
     public Event() {
 
+    }
+
+    public Event(int eventId, String eventName, Date eventStartDate, Date eventEndDate, String eventAgeRange, String eventAddress, int eventMaxNumberParticipant, int eventNumberReservation, String eventDescription, int userId) {
+        this.eventId = eventId;
+        this.eventName = eventName;
+        this.eventStartDate = eventStartDate;
+        this.eventEndDate = eventEndDate;
+        this.eventAgeRange = eventAgeRange;
+        this.eventAddress = eventAddress;
+        this.eventMaxNumberParticipant = eventMaxNumberParticipant;
+        this.eventNumberReservation = eventNumberReservation;
+        this.eventDescription = eventDescription;
+        this.userId = userId;
     }
 
     public Event(EventBuilder eventBuilder) {

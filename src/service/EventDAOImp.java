@@ -6,13 +6,14 @@
 package service;
 
 import entity.Event;
+import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import utils.Datasource;
 
@@ -22,6 +23,9 @@ import utils.Datasource;
  */
 public class EventDAOImp implements EventDAO {
 
+    	public static Event Event;
+        
+        
     // CRUD - Retrieve
     @Override
     public Event get(int id) throws SQLException {
@@ -176,6 +180,9 @@ public class EventDAOImp implements EventDAO {
 
         return result;
     }
+
+  
+  
 
    
 

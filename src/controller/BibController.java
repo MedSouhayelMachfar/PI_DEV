@@ -103,10 +103,4 @@ public class BibController implements Initializable {
     }
 
    
-
-// Setting user info passed from login screen
-public void setUserInformation(int id_user, String first_name, String last_name, String email) {
-        label_welcome.setText(last_name);
-        System.out.println(AuthService.loggedInUser);
-    }
 }

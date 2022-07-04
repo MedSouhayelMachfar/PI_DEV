@@ -5,7 +5,7 @@
  */
 package service;
 
-import entity.Event;
+import entity.reservation;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,6 +14,6 @@ import java.util.List;
  *
  * @author user
  */
-public interface EventDAO extends DAO<Event>{
+public interface ReservationDAO extends DAO<reservation>{
 
 }

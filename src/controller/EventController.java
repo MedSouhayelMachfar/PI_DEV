@@ -90,6 +90,8 @@ public class EventController implements Initializable {
     @FXML
     private Button Ajouter;
     
+              @FXML
+    private Button UPDATE;
        
 
     @FXML
@@ -241,13 +243,18 @@ public class EventController implements Initializable {
                             final Button dltBtn = new Button("DELETE");
                             editBtn.setOnAction((ActionEvent event) -> {
                               //  saveButton.setText("UPDATE");
-                                eventselected = getTableView().getItems().get(getIndex());
+                              eventselected = getTableView().getItems().get(getIndex());
                                 nameEvent.setText(eventselected.getEventName());
-                              
-                        tanche_Age.setText(eventselected.getEventAgeRange());
-                        adresseEvente.setText(eventselected.getEventAddress());
-                        ;
-                        despEvent.setText(eventselected.getEventDescription());
+
+                                tanche_Age.setText(eventselected.getEventAgeRange());
+                                adresseEvente.setText(eventselected.getEventAddress());
+
+                                date_debut.setValue((eventselected.getEventStartDate()).toLocalDate());
+                                date_Fin.setValue((eventselected.getEventEndDate()).toLocalDate());
+                                nb_participant.setText(String.valueOf(eventselected.getEventMaxNumberParticipant()));
+                                nbReservation.setText(String.valueOf(eventselected.getEventNumberReservation()));
+
+                                despEvent.setText(eventselected.getEventDescription());
                                 try {
                                     
                                     e1.update(eventselected);
@@ -329,6 +336,38 @@ public class EventController implements Initializable {
             }
 
         });
+        
+        
+        ////update 
+        
+         UPDATE.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            
+                    
+                        try {
+                            Event e;
+                            e = new Event(eventselected.getEventId(),nameEvent.getText(),Date.valueOf(date_debut.getValue()),Date.valueOf(date_Fin.getValue()),tanche_Age.getText(),adresseEvente.getText(),Integer.parseInt(nb_participant.getText()),Integer.parseInt(nbReservation.getText()),despEvent.getText(),AuthService.loggedInUser.getUserId());
+
+                            EventDAOImp eventService = new EventDAOImp();
+
+                            eventService.update(e);
+                            TableEventList.setItems(FXCollections.observableArrayList(eventService.getAll()));
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+
+                        }
+
+                        AlertModal.showInfoAlert("! evenement update avec succès ", "   evenement ajouté avec succès!");
+
+
+                    }
+                
+            
+
+        });
+        
     }
 
 }

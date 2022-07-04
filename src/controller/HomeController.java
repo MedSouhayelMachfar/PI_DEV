@@ -54,6 +54,9 @@ public class HomeController implements Initializable {
 
 	@FXML
 	private Button button_nav_notif;
+        	@FXML
+	private Button go_event;
+        
 
 	@FXML
 	private ComboBox<String> dropdownmenu;
@@ -103,8 +106,8 @@ public class HomeController implements Initializable {
 
 		button_nav_bib.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event) {
-				SceneManager.changeScene(event, "bib.fxml", "Bibliotheque", null);
+			public void handle(ActionEvent event) {	
+                            SceneManager.changeScene(event, "bib.fxml", "Bibliotheque", null);
 			}
 		});
 
@@ -112,6 +115,12 @@ public class HomeController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				SceneManager.changeScene(event, "notif.fxml", "Notification", null);
+			}
+		});
+                	go_event.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				SceneManager.changeScene(event, "EventListAccueil.fxml", "EventListAccueil", null);
 			}
 		});
 
