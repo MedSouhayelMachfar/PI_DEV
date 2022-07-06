@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class Datasource {
 	// static reference to itself
 	private static Datasource instance = new Datasource();
-	public static final String URL = "jdbc:mysql://localhost:3306/projetpi";
+	public static final String URL = "jdbc:mysql://localhost:3306/dump07062022";
 	public static final String USER = "root";
 	public static final String PASSWORD = "";
 	public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";

@@ -246,7 +246,7 @@ public class EventController implements Initializable {
                               
                         tanche_Age.setText(eventselected.getEventAgeRange());
                         adresseEvente.setText(eventselected.getEventAddress());
-                        ;
+                       
                         despEvent.setText(eventselected.getEventDescription());
                                 try {
                                     

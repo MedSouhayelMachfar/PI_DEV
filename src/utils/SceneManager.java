@@ -58,4 +58,22 @@ public class SceneManager {
 		stage.setScene(new Scene(root, 1000, 700));
 		stage.show();
 	}
+
+    public static void changeSceneForMenuBar1(Stage menubar1, String fxmlFile, String title) {
+                Parent root = null;
+		fxmlFile = "/view/" + fxmlFile;
+		try {
+			root = FXMLLoader.load(SceneManager.class.getResource(fxmlFile));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Stage stage = menubar1;
+		stage.setTitle(title);
+		stage.setScene(new Scene(root, 1000, 700));
+		stage.show();    }
+    
+   
+
 }
+

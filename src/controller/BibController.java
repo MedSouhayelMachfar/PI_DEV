@@ -56,7 +56,7 @@ public class BibController implements Initializable {
     @FXML
     private Button getmetheuser;
   
- 
+  
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,7 +93,7 @@ public class BibController implements Initializable {
         getmetheuser.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                SceneManager.changeScene(event, "Event.fxml", "Event", null);
+                SceneManager.changeScene(event, "Annonce.fxml", "Annonce", null);
             }
         });
 

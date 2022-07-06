@@ -5,6 +5,7 @@
  */
 package service;
 
+import entity.Annonce;
 import entity.Event;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -177,6 +178,7 @@ public class EventDAOImp implements EventDAO {
         return result;
     }
 
+   
    
 
 }

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import entity.User;
 import java.sql.Date;
+import service.AnnonceDAOImp;
 import service.EventDAOImp;
 import service.UserDAOImpl;
 
@@ -19,14 +20,9 @@ public class Testing {
              //   Event myEvent= new Event.EventBuilder().eventId(1).eventName("Event").eventStartDate("2022-03-05").eventEndDate("2022-04-05").eventAgeRange(25).eventAddress("Tunis").eventMaxNumberParticipant(30).eventNumberReservation(25).eventDescription("firsttEvent").userId(1).build();
                 
                 
-                
+                AnnonceDAOImp a1 = new AnnonceDAOImp();
 	
-               Event myEvent= new Event.EventBuilder().
-                       eventName("Event melek").eventStartDate( new Date (2022-03-05)).
-                       eventEndDate( new Date (2022-04-05)).eventAgeRange("15").
-                       eventAddress("Tunis").eventMaxNumberParticipant(30).eventNumberReservation(25).
-                       eventDescription("firsttnt").userId(1).build();
-               
+              
                 
                 
 		try {
@@ -34,7 +30,7 @@ public class Testing {
                                    //System.out.println(u2.update(event));
 
                
-                        System.out.println(u2.insert(myEvent));
+                        System.out.println(a1.getAll());
 			
 
 		} catch (SQLException e) {
