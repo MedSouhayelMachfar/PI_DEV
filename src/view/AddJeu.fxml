@@ -21,7 +21,7 @@
             <Button fx:id="button_nav_forum" layoutX="199.0" layoutY="12.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Forum" />
             <Button fx:id="button_nav_bib" layoutX="358.0" layoutY="13.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #bfe6ff;" text="Bibliothèque" />
             <Button fx:id="button_nav_notif" layoutX="519.0" layoutY="13.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Notif" />
-            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="779.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profile_image" fitHeight="70.0" fitWidth="70.0" layoutX="779.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/avatar.png" />
                </image>
@@ -68,7 +68,7 @@
             </Label>
             <TextField fx:id="txt_id" layoutX="88.0" layoutY="55.0" opacity="0.9" prefHeight="27.0" prefWidth="70.0" visible="false" />
             <TextField fx:id="Search" layoutX="23.0" layoutY="262.0" onAction="#search" promptText="Search" />
-            <Button fx:id="next" layoutX="514.0" layoutY="423.0" mnemonicParsing="false" onMouseClicked="#GoJeux" prefHeight="27.0" prefWidth="126.0" text="Mes Jeux" />
+            <TextField fx:id="txt_iduser" layoutX="201.0" layoutY="68.0" opacity="0.9" prefHeight="27.0" prefWidth="70.0" visible="false" />
          </children>
       </AnchorPane>
    </children>

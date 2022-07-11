@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +16,7 @@ import service.AuthService;
 import service.JeuDAOImpl;
 import utils.Datasource;
 import utils.SceneManager;
+import utils.UploadImage2;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,9 +25,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -43,7 +40,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class AddJeuController implements Initializable {
-
+	private File imageFile;
 	@FXML
 	private TableView<Jeu> jeu;
 
@@ -64,9 +61,6 @@ public class AddJeuController implements Initializable {
 
 	@FXML
 	private Button upload;
-
-	@FXML
-	private Button next;
 
 	@FXML
 	private Button afficher;
@@ -97,30 +91,30 @@ public class AddJeuController implements Initializable {
 
 	@FXML
 	private Label label_welcome;
-	
+
 	@FXML
-    private Button button_logout;
+	private Button button_logout;
 
-    @FXML
-    private Button button_nav_accueil;
+	@FXML
+	private Button button_nav_accueil;
 
-    @FXML
-    private Button button_nav_bib;
+	@FXML
+	private Button button_nav_bib;
 
-    @FXML
-    private Button button_nav_forum;
+	@FXML
+	private Button button_nav_forum;
 
-    @FXML
-    private Button button_nav_notif;
+	@FXML
+	private Button button_nav_notif;
 
-    @FXML
-    private Button getmetheuser;
-    
-   
+	@FXML
+	private Button getmetheuser;
 
-   
+	@FXML
+	private TextField txt_iduser;
 	
-	
+    @FXML
+    private ImageView profile_image;
 
 	@FXML
 	void GoJeux(MouseEvent event) {
@@ -141,73 +135,58 @@ public class AddJeuController implements Initializable {
 
 	public ObservableList<Jeu> data = FXCollections.observableArrayList();
 	int index = -1;
+
 	public void setUserInformation(int id_user, String first_name, String last_name, String email) {
 		label_welcome.setText(last_name);
 		System.out.println(AuthService.loggedInUser);
 	}
 
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*if(!AuthService.loggedInUser.getRole().equals("admin")) {
-			item_annonce.setVisible(false);
-			item_event.setVisible(false);
-			item_compte.setVisible(false);
-		}*/
+		/*
+		 * if(!AuthService.loggedInUser.getRole().equals("admin")) {
+		 * item_annonce.setVisible(false); item_event.setVisible(false);
+		 * item_compte.setVisible(false); }
+		 */
+		
 		label_welcome.setText(AuthService.loggedInUser.getFirstName());
+		if(AuthService.loggedInUser.getUserImage().equals("")) {
+			AuthService.loggedInUser.setUserImage( "avatar.png");
+		}
+		String imageSource = "http://localhost:3030/api/v1/users/image/"+AuthService.loggedInUser.getUserImage();
+		profile_image.setImage(new Image(imageSource));
 
 		search();
+
 		
-		
-
-		next.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				System.out.println("test");
-				try {
-					// FXMLLoader loader=new FXMLLoader();
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource("/view/MesJeux.fxml"));
-					Parent root = (Parent) loader.load();
-					Scene scene = new Scene(root);
-					Stage stage = new Stage();
-					stage.setScene(scene);
-					stage.show();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			}
-		});
 		button_nav_accueil.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				SceneManager.changeScene(event, "home.fxml", "Forum", null);
 			}
 		});
-		
+
 		button_nav_notif.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				SceneManager.changeScene(event, "notif.fxml", "Notification", null);
 			}
 		});
-		
+
 		button_nav_forum.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				SceneManager.changeScene(event, "forum.fxml", "Forum", null);
 			}
 		});
-		
+
 		button_nav_bib.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				SceneManager.changeScene(event, "AddJeu.fxml", "Jeu", null);
 			}
 		});
-		
+
 		button_logout.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -220,8 +199,25 @@ public class AddJeuController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				int id = Integer.parseInt(txt_id.getText());
-				System.out.println(id + "" + nametxt.getText() + "" + cbcat.getValue() + "" + lab_url.getText());
-				Jeu j = new Jeu(id, nametxt.getText(), cbcat.getValue(), lab_url.getText());
+				// int iduser= Integer.parseInt(txt_iduser.getText());
+				int IdU = AuthService.loggedInUser.getUserId();
+
+				String imageName2 = "";
+				if (imageFile != null) {
+
+					try {
+						imageName2 = UploadImage2.Uplaod(imageFile,
+								Integer.toString(AuthService.loggedInUser.getUserId()));
+					} catch (IOException e) { // TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				System.out.println(id + "" + nametxt.getText() + "" + cbcat.getValue() + "" + lab_url.getText() + ""
+						+ txt_iduser.getText());
+
+				Jeu j = new Jeu.JeuBuilder().ID(id).Title(nametxt.getText()).Categorie(cbcat.getValue()).url(imageName2)
+						.userId(IdU).build();
+
 				JeuDAOImpl ps = new JeuDAOImpl();
 
 				try {
@@ -262,24 +258,35 @@ public class AddJeuController implements Initializable {
 	void Addimg(ActionEvent event) {
 		FileChooser fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("image Files", "*.jpg", "*.png"));
-		File f = fc.showOpenDialog(null);
+		File f = fc.showOpenDialog(new Stage());
 		if (f != null) {
-			lab_url.setText(f.getAbsolutePath());
-			//lab_url.setText(f.getPath());
+			imageFile = f;
+			setImageFile(f);
+			lab_url.setText(f.getName());
 			Image image = new Image(f.toURI().toString(), 270, 225, true, true);
 			img.setImage(image);
 		}
 
 	}
 
-	
 	@FXML
 	void AddJeux(ActionEvent event) throws SQLException {
 		int IdU = AuthService.loggedInUser.getUserId();
-		
-		System.out.println(nametxt.getText() +""+ cbcat.getValue() +""+ lab_url.getText()+""+IdU);
-		Jeu j=new Jeu.JeuBuilder().Title(nametxt.getText()).Categorie(cbcat.getValue()).url(lab_url.getText()).userId(IdU).build();
-		
+
+		String imageName2 = "";
+
+		if (imageFile != null) {
+
+			try {
+				imageName2 = UploadImage2.Uplaod(imageFile, Integer.toString(AuthService.loggedInUser.getUserId()));
+			} catch (IOException e) { // TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println(nametxt.getText() + "" + cbcat.getValue() + "" + lab_url.getText() + "" + IdU);
+		Jeu j = new Jeu.JeuBuilder().Title(nametxt.getText()).Categorie(cbcat.getValue()).url(imageName2).userId(IdU)
+				.build();
+
 		JeuDAOImpl ps = new JeuDAOImpl();
 		SceneManager.changeScene(event, "AddJeu.fxml", null, null);
 		ps.insert(j);
@@ -328,18 +335,31 @@ public class AddJeuController implements Initializable {
 	@FXML
 	void getSelected(MouseEvent event) {
 		index = jeu.getSelectionModel().getSelectedIndex();
-		
+
 		if (index <= -1) {
 
 			return;
 		}
+
 		txt_id.setText(id.getCellData(index).toString());
 		nametxt.setText(name.getCellData(index).toString());
 		cbcat.setPromptText(cat.getCellData(index).toString());
 		lab_url.setText(picture.getCellData(index).toString());
-		Image image= new Image(lab_url.getText());
-		img.setImage(image);
-		 
+		// Image image = new Image(lab_url.getText());
+		// img.setImage(image);
+		Jeu game = null;
+		try {
+			int idjeu = Integer.parseInt(txt_id.getText());
+			game = new JeuDAOImpl().get(idjeu);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String imageSource = "http://localhost:3030/api/v1/games/image/" + game.getUrl();
+		img.setImage(new Image(imageSource));
 	}
 
 	@FXML
@@ -372,6 +392,14 @@ public class AddJeuController implements Initializable {
 		SortedList<Jeu> sortedData = new SortedList<>(filteredData);
 		sortedData.comparatorProperty().bind(jeu.comparatorProperty());
 		jeu.setItems(sortedData);
+	}
+
+	public File getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(File imageFile) {
+		this.imageFile = imageFile;
 	}
 
 }

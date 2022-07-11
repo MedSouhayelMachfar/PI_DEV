@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -92,6 +93,8 @@ public class HomeController implements Initializable {
 	@FXML
 	private ImageView view_5;
 	
+	@FXML
+	private ImageView profile_image;
 
     
 
@@ -108,8 +111,14 @@ public class HomeController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		label_welcome.setText(AuthService.loggedInUser.getFirstName());
+		if(AuthService.loggedInUser.getUserImage().equals("")) {
+			AuthService.loggedInUser.setUserImage( "avatar.png");
+		}
+		String imageSource = "http://localhost:3030/api/v1/users/image/"+AuthService.loggedInUser.getUserImage();
+		profile_image.setImage(new Image(imageSource));
 		
-		
+		String imageSource2 = "http://localhost:3030/api/v1/games/image/jeu-4-1657573799613.jpeg";
+		view_1.setImage(new Image(imageSource2));
 
 		// Hide functionality for simple users
 		if (!AuthService.loggedInUser.getRole().equals("admin")) {

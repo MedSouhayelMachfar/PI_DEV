@@ -26,11 +26,7 @@ public class Jeu {
     }
 
    
-	@Override
-	public String toString() {
-		return "Jeu [ID=" + ID + ", Title=" + Title + ", Categorie=" + Categorie + ", url=" + url + ", userId=" + userId
-				+ "]";
-	}
+	
 
 
 	public int getID() {
@@ -81,7 +77,12 @@ public class Jeu {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Jeu [ID=" + ID + ", Title=" + Title + ", Categorie=" + Categorie + ", url=" + url + ", userId=" + userId
+				+ "]";
+	}
 	//JeuBuilder
 	
 	public static class JeuBuilder {
@@ -130,15 +131,24 @@ public class Jeu {
 			// Do some basic validations to check
 			// if user object does not break any assumption of system
 		}
+
+		@Override
+		public String toString() {
+			return "JeuBuilder [ID=" + ID + ", Title=" + Title + ", Categorie=" + Categorie + ", url=" + url
+					+ ", userId=" + userId + "]";
+		}
+
+		
 		
 	    
 	}
 
-	public Jeu(int ID, String Title, String Categorie, String url) {
+	public Jeu(int ID, String Title, String Categorie, String url,int user_id) {
         this.ID = ID;
         this.Title = Title;
         this.Categorie = Categorie;
         this.url = url;
+        this.userId=user_id;
     }
 
 	public Jeu(String Title, String Categorie, String url,int user_id) {
@@ -147,6 +157,15 @@ public class Jeu {
         this.url = url;
         this.userId=user_id;
 	}
+	public Jeu(int ID, String Title, String Categorie, String url) {
+        this.ID = ID;
+        this.Title = Title;
+        this.Categorie = Categorie;
+        this.url = url;
+    }
+
+
+	
 
 
 	

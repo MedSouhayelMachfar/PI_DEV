@@ -113,13 +113,14 @@ public class UserDAOImpl implements UserDAO {
 		int result = -1;
 		if (connection != null) {
 			String updateQuery = " UPDATE user "
-					+ " SET first_name = ?, last_name = ? "
+					+ " SET first_name = ?, last_name = ?, user_image = ? "
 					+ " WHERE user_id = ?; ";
 			PreparedStatement updateps = connection.prepareStatement(updateQuery);
 
 			updateps.setString(1, user.getFirstName());
 			updateps.setString(2, user.getLastName());
-			updateps.setInt(3, user.getUserId());
+			updateps.setString(3, user.getUserImage());
+			updateps.setInt(4, user.getUserId());
 
 			result = updateps.executeUpdate();
 

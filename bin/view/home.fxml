@@ -26,9 +26,9 @@
             </Label>
             <Button fx:id="button_nav_accueil" layoutX="50.0" layoutY="20.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #bfe6ff;" text="Accueil" />
             <Button fx:id="button_nav_forum" layoutX="220.0" layoutY="20.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Forum" />
-            <Button fx:id="button_nav_bib" layoutX="390.0" layoutY="20.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Bibliothèque" />
+            <Button fx:id="button_nav_bib" layoutX="418.0" layoutY="29.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="102.0" text="Bibliothèque" />
             <Button fx:id="button_nav_notif" layoutX="560.0" layoutY="20.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="130.0" text="Notif" />
-            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="733.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profile_image" fitHeight="70.0" fitWidth="70.0" layoutX="733.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/avatar.png" />
                </image></ImageView>
@@ -46,9 +46,9 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <MenuBar fx:id="menubar1" layoutX="390.0" layoutY="22.0" prefHeight="55.0" prefWidth="130.0">
+            <MenuBar fx:id="menubar1" layoutX="367.0" layoutY="22.0" prefHeight="55.0" prefWidth="168.0">
                <menus>
-                  <Menu fx:id="customMenu1" mnemonicParsing="false" text="Menu">
+                  <Menu fx:id="customMenu1" mnemonicParsing="false" text="Bibliothèque">
                      <items>
                         <MenuItem fx:id="item_jeu1" mnemonicParsing="false" text="Ajouter Jeux" />
                         <MenuItem fx:id="item_event2" mnemonicParsing="false" text="Ajouter Event" />
