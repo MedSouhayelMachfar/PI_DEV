@@ -169,14 +169,15 @@ public class EventController implements Initializable {
         dateFin.setCellValueFactory(new PropertyValueFactory<>("eventEndDate"));
         TrancheAge.setCellValueFactory(new PropertyValueFactory<>("eventAgeRange"));
         adresseEvent.setCellValueFactory(new PropertyValueFactory<>("eventAddress"));
-
         List<Event> list = new ArrayList<>();
-        try {
-            list = e1.getAll();
+           try {
+               Integer user_id= AuthService.loggedInUser.getUserId();   
+            list = e1.getAllByUserConncet(user_id);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
         listEvent = FXCollections.observableArrayList(list);
         System.out.println(list);
 
@@ -271,7 +272,8 @@ public class EventController implements Initializable {
 
                                     System.out.println("aliiiii" + eventselected);
                                     e1.delete(eventselected);
-                                    TableEventList.setItems(FXCollections.observableArrayList(e1.getAll()));
+Integer user_id= AuthService.loggedInUser.getUserId();             
+TableEventList.setItems(FXCollections.observableArrayList(e1.getAllByUserConncet(user_id)));
 
                                     AlertModal.showErrorAlert(null, "your event is delete!");
 
@@ -313,7 +315,10 @@ public class EventController implements Initializable {
                             EventDAOImp eventService = new EventDAOImp();
 
                             eventService.insert(e);
-                            TableEventList.setItems(FXCollections.observableArrayList(e1.getAll()));
+                            Integer user_id= AuthService.loggedInUser.getUserId();             
+
+                            TableEventList.setItems(FXCollections.observableArrayList(e1.getAllByUserConncet(user_id)));
+
 
                         } catch (SQLException e) {
                             e.printStackTrace();

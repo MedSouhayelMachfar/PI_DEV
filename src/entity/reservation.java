@@ -17,9 +17,7 @@ public class reservation {
     
    private Event  event_id;
 
-    public reservation(Integer user_id, Integer event_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+ 
 
     @Override
     public String toString() {

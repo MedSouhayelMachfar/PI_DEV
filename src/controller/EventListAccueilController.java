@@ -7,6 +7,7 @@ package controller;
 
 import API.sendSMS;
 import entity.Event;
+import entity.User;
 import entity.reservation;
 import java.net.URL;
 import java.sql.Date;
@@ -36,6 +37,7 @@ import javafx.util.Callback;
 import service.AuthService;
 import service.EventDAOImp;
 import service.ReservationDAOImpl;
+import service.UserDAOImpl;
 import utils.AlertModal;
 import utils.SceneManager;
 
@@ -218,33 +220,38 @@ public class EventListAccueilController implements Initializable {
                                    editBtn.setOnAction((ActionEvent event) -> {
                                        
                                 
-                                   eventselected = getTableView().getItems().get(getIndex());
+                                 //  eventselected = getTableView().getItems().get(getIndex());
 
                                        Integer user_id= AuthService.loggedInUser.getUserId();
-                                       System.out.println(tableEventListe.getSelectionModel().getSelectedIndex());
-                                       Integer event_id=EventDAOImp.Event.getEventId();
-                           reservation r = new reservation(user_id,event_id);
+                                       System.out.println("user"+user_id);
+                                       Integer event_id=getTableView().getItems().get(getIndex()).getEventId();
+                                       System.out.println("even"+event_id);
+                                       UserDAOImpl us= new UserDAOImpl();
+                                       User u1 =  us.get(user_id);
+                                      EventDAOImp ev = new EventDAOImp();
+                                      Event e12 =ev.get(event_id);
+                           reservation r = new reservation(u1,e12);
 
                             ReservationDAOImpl reservationService = new ReservationDAOImpl();
 
                                    try {
-                                       System.out.println(".updateItem()"+r);
+                                      // System.out.println(".updateItem()"+r);
                                        reservationService.insert(r);
                                    } catch (SQLException ex) {
                                        Logger.getLogger(EventListAccueilController.class.getName()).log(Level.SEVERE, null, ex);
                                    }
                                        //  saveButton.setText("UPDATE");
-                                       sendSMS sm =new sendSMS();
-                                       sm.sendSMS();
+                                     /*  sendSMS sm =new sendSMS();
+                                       sm.sendSMS();*/
                                        
-                                    eventselected.setEventMaxNumberParticipant(eventselected.getEventMaxNumberParticipant() -1);
-                                    
-                                            if(eventselected.getEventMaxNumberParticipant()< 0 ){
-                                   
-                                     editBtn.setDisable(true);
+                           //       eventselected.setEventMaxNumberParticipant(eventselected.getEventMaxNumberParticipant() -1);
+                                  
+                                   //         if(eventselected.getEventMaxNumberParticipant()< 0 ){
+                                //   
+                                  //   editBtn.setDisable(true);
 
-                               }
-                                       System.out.println(".updateItem()"+ eventselected.getEventMaxNumberParticipant());
+                            //   }
+//                                       System.out.println(".updateItem()"+ eventselected.getEventMaxNumberParticipant());
                                    }); 
                                    
                            

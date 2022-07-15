@@ -13,19 +13,22 @@ import utils.Datasource;
 
 // Entity
 import entity.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAOImpl implements UserDAO {
 
 	// CRUD - Retrieve
 	@Override
-	public User get(int id) throws SQLException {
+	public User get(int id)  {
 		Connection con = Datasource.getConnection();
 		User user = null;
 
 		String sql = "SELECT * FROM user WHERE user_id = ?";
 
-		PreparedStatement ps = con.prepareStatement(sql);
-
+		
+try{
+    PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, id);
 
 		ResultSet rs = ps.executeQuery();
@@ -39,11 +42,16 @@ public class UserDAOImpl implements UserDAO {
 			String role = rs.getString("role");
 			String image = rs.getString("user_image");
 
-			user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).role(role).user_image(image).build();
-		}
+		
+                        user = new User.UserBuilder().userId(userId).firstName(firstName).lastName(lastName).email(email).etatCompte(etatC).role(role).user_image(image).build();
+		
+                } } catch (SQLException ex) {
+            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-		Datasource.closeResultSet(rs);
-		Datasource.closePreparedStatement(ps);
+                
+          
+
 
 		return user;
 	}

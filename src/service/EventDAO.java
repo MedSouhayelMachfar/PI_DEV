@@ -15,5 +15,7 @@ import java.util.List;
  * @author user
  */
 public interface EventDAO extends DAO<Event>{
+	List<Event> getAllByUserConncet(int id) throws SQLException;
+
 
 }

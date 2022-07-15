@@ -39,14 +39,16 @@ public class ReservationDAOImpl implements ReservationDAO {
          Connection connection = Datasource.getConnection();
         int result = -1;
         if (connection != null) {
-            String insertQuery = "INSERT INTO reservation (user_id, event_id) VALUES (?, ?)";
+          String insertQuery = "INSERT INTO reservation ( user_id,event_id) VALUES (?, ?)";
             PreparedStatement insertps = connection.prepareStatement(insertQuery);
 
        
-      
-            insertps.setInt(1, EventDAOImp.Event.getEventId());
-           
-            insertps.setInt(2, AuthService.loggedInUser.getUserId());
+			insertps.setInt(1, reservation.getUser_id().getUserId());
+			insertps.setInt(2, reservation.getEvent_id().getEventId());
+		
+
+		
+
 
             result = insertps.executeUpdate();
 
@@ -66,6 +68,5 @@ public class ReservationDAOImpl implements ReservationDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
-
+ 
 }

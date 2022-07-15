@@ -10,11 +10,15 @@ import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.SQLException;import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static service.AuthService.loggedInUser;
 import utils.Datasource;
 
 /**
@@ -23,42 +27,42 @@ import utils.Datasource;
  */
 public class EventDAOImp implements EventDAO {
 
-    	public static Event Event;
-        
-        
+    public static Event Event;
+
     // CRUD - Retrieve
     @Override
-    public Event get(int id) throws SQLException {
+    public Event get(int id) {
         Connection con = Datasource.getConnection();
         Event event = null;
 
         String sql = "SELECT * FROM evenement WHERE event_id  = ?";
+        try {
 
-        PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
 
-        ps.setInt(1, id);
+            ps.setInt(1, id);
 
-        ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            int eventId = rs.getInt("event_id");
-            String eventName = rs.getString("event_name");
-            Date eventStartDate = rs.getDate("event_start_date");
-            Date eventEndDate = rs.getDate("event_end_date");
-            String eventAgeRange = rs.getString("event_age_range");
-            String eventAddress = rs.getString("event_address");
-            int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
-            int eventNumberReservation = rs.getInt("event_number_reservation");
-            String eventDescription = rs.getString("event_description");
-            int userId = rs.getInt("user_id");
+            if (rs.next()) {
+                int eventId = rs.getInt("event_id");
+                String eventName = rs.getString("event_name");
+                Date eventStartDate = rs.getDate("event_start_date");
+                Date eventEndDate = rs.getDate("event_end_date");
+                String eventAgeRange = rs.getString("event_age_range");
+                String eventAddress = rs.getString("event_address");
+                int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
+                int eventNumberReservation = rs.getInt("event_number_reservation");
+                String eventDescription = rs.getString("event_description");
+                int userId = rs.getInt("user_id");
 
-            event = new Event.EventBuilder().eventId(eventId).eventName(eventName).eventStartDate(eventStartDate).eventEndDate(eventEndDate).eventAgeRange(eventAgeRange).eventAddress(eventAddress)
-                    .eventMaxNumberParticipant(eventMaxNumberParticipant).eventNumberReservation(eventNumberReservation).eventDescription(eventDescription).userId(userId).build();
+                event = new Event.EventBuilder().eventId(eventId).eventName(eventName).eventStartDate(eventStartDate).eventEndDate(eventEndDate).eventAgeRange(eventAgeRange).eventAddress(eventAddress)
+                        .eventMaxNumberParticipant(eventMaxNumberParticipant).eventNumberReservation(eventNumberReservation).eventDescription(eventDescription).userId(userId).build();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Datasource.closeResultSet(rs);
-        Datasource.closePreparedStatement(ps);
-
         return event;
     }
 
@@ -140,9 +144,7 @@ public class EventDAOImp implements EventDAO {
                     + " SET event_name = ?, event_start_date = ?, event_end_date = ?, event_age_range = ?, event_address = ?, event_max_number_participant = ?, event_number_reservation = ?, event_description = ?, user_id = ? "
                     + " WHERE event_id = ?";
             PreparedStatement updateps = connection.prepareStatement(updateQuery);
-          
-            
-            
+
             updateps.setString(1, event.getEventName());
             updateps.setDate(2, (java.sql.Date) event.getEventStartDate());
             updateps.setDate(3, (java.sql.Date) event.getEventEndDate());
@@ -153,13 +155,11 @@ public class EventDAOImp implements EventDAO {
             updateps.setString(8, event.getEventDescription());
             updateps.setInt(9, event.getUserId());
             updateps.setInt(10, event.getEventId());
-        
-       
 
             result = updateps.executeUpdate();
             Datasource.closePreparedStatement(updateps);
         }
-        System.out.println("query succeeded"+event.getEventId());
+        System.out.println("query succeeded" + event.getEventId());
         return result;
     }
 
@@ -181,9 +181,37 @@ public class EventDAOImp implements EventDAO {
         return result;
     }
 
+    @Override
   
-  
+      public List<Event> getAllByUserConncet(int id) throws SQLException {
 
-   
+        Connection con = Datasource.getConnection();
+        String sql = "SELECT * FROM evenement where user_id=4";
 
+        List<Event> events = new ArrayList<>();
+
+        Statement stmt = con.createStatement();
+
+        ResultSet rs = stmt.executeQuery(sql);
+        Event event;
+        while (rs.next()) {
+            int eventId = rs.getInt("event_id");
+            String eventName = rs.getString("event_name");
+            Date eventStartDate = rs.getDate("event_start_date");
+            Date eventEndDate = rs.getDate("event_end_date");
+            String eventAgeRange = rs.getString("event_age_range");
+            String eventAddress = rs.getString("event_address");
+            int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
+            int eventNumberReservation = rs.getInt("event_number_reservation");
+            String eventDescription = rs.getString("event_description");
+            int userId = rs.getInt("user_id");
+
+            event = new Event.EventBuilder().eventId(eventId).eventName(eventName).eventStartDate(eventStartDate).eventEndDate(eventEndDate).eventAgeRange(eventAgeRange).eventAddress(eventAddress)
+                    .eventMaxNumberParticipant(eventMaxNumberParticipant).eventNumberReservation(eventNumberReservation).eventDescription(eventDescription).userId(userId).build();
+
+            events.add(event);
+        }
+
+        return events;
+    }
 }

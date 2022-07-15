@@ -2,21 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/ReservationDAO.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/UserDAOImpl.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/AuthService.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/API/sendSMS.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/EventDAOImp.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/DAO.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/BibController.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/entity/reservation.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/EventDAO.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/service/ReservationDAOImpl.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/application/Main.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/SignUpController.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/EventListAccueilController.java</file>
-            <file>file:/C:/Users/user/Desktop/projetPIGit/PI_DEV/src/controller/EventController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
