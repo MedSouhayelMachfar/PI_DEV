@@ -31,7 +31,7 @@
                </image></ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="99.0" prefWidth="1000.0" style="-fx-background-color: blue;">
+      <AnchorPane prefHeight="99.0" prefWidth="1000.0" style="-fx-background-color: #3286aa;">
          <children>
             <Label layoutX="54.0" layoutY="28.0" text="liste des Events" textFill="WHITE">
                <font>

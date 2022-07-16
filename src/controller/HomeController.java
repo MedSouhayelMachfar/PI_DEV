@@ -61,6 +61,16 @@ public class HomeController implements Initializable {
 	@FXML
 	private ComboBox<String> dropdownmenu;
 
+        
+        @FXML
+	private Menu customMenu2;
+
+	@FXML
+	private MenuBar menubar2;
+
+	@FXML
+	private MenuItem event;
+        
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Hide functionality for simple users
@@ -123,7 +133,19 @@ public class HomeController implements Initializable {
 				SceneManager.changeScene(event, "EventListAccueil.fxml", "EventListAccueil", null);
 			}
 		});
-
+                customMenu2.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String targetElement = event.getTarget().toString();
+			
+				if (targetElement.contains("event")) {
+					SceneManager.changeSceneForMenuBar((Stage) menubar2.getScene().getWindow(), "Event.fxml",
+							"event");
+					return;
+				}
+			
+			}
+		});
 	}
 
 	// Setting user info passed from login screen

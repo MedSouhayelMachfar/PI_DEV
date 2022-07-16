@@ -43,6 +43,20 @@
                   </Menu>
               </menus>
             </MenuBar>
+            
+            
+            
+              <MenuBar fx:id="menubar2" layoutX="402.0" layoutY="34.0" prefHeight="25.0" prefWidth="106.0">
+              <menus>
+                  <Menu fx:id="customMenu2" mnemonicParsing="false" text="Bibliothéque">
+                    <items>
+                        
+                        <MenuItem fx:id="event" mnemonicParsing="false" text="Gestion des evements" />
+                       
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="613.0" prefWidth="1000.0">
