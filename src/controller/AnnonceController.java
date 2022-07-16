@@ -7,6 +7,7 @@ package controller;
 
 import entity.Annonce;
 import entity.Event;
+import java.io.File;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -33,7 +34,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import javax.swing.JOptionPane;
 import service.AnnonceDAOImp;
@@ -80,8 +84,6 @@ public class AnnonceController implements Initializable {
     @FXML
     private TextField ContentAn;
 
-    @FXML
-    private TextField imgAn;
 
     @FXML
     private Button ajoute_Annonce;
@@ -92,8 +94,7 @@ public class AnnonceController implements Initializable {
     @FXML
     private Button UPDATE;
 
-    @FXML
-    private TextField typeannon;
+   
 
     @FXML
     private TableView<Annonce> TableAnnonceListe;
@@ -116,6 +117,42 @@ public class AnnonceController implements Initializable {
 
     @FXML
     private TableColumn<Annonce, Annonce> action;
+    
+     @FXML
+    private ComboBox <String> comboannonce;
+     
+        @FXML
+    private Button imgAn;
+
+    @FXML
+    private Label urlSelected;
+
+     @FXML
+    private ImageView imguploqd;
+     
+      @FXML
+	void Addimg(ActionEvent event) {
+		FileChooser fc = new FileChooser();
+		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image Files", "*.jpg", "*.png"));
+		File f = fc.showOpenDialog(null);
+		if (f != null) {
+			urlSelected.setText(f.getAbsolutePath());
+			//lab_url.setText(f.getPath());
+			Image image = new Image(f.toURI().toString(), 270, 225, true, true);
+			imguploqd.setImage(image);
+		}
+
+	}
+
+
+   
+    
+    
+@FXML
+    void Select(ActionEvent event) {
+        String s =comboannonce.getSelectionModel().getSelectedItem().toString();
+
+    }
     Annonce annonceselected;
 
     ObservableList<Annonce> listAnnonce;
@@ -154,6 +191,11 @@ public class AnnonceController implements Initializable {
                 SceneManager.changeScene(event, "forum.fxml", "Forum", null);
             }
         });
+        
+        
+         ObservableList<String> list =FXCollections.observableArrayList("echange","vente");
+        comboannonce.setItems(list);
+        
 
         // TODO
         
@@ -164,10 +206,10 @@ public class AnnonceController implements Initializable {
         //add haifa
         AnnonceDAOImp a1 = new AnnonceDAOImp();
         titleAnnonce.setCellValueFactory(new PropertyValueFactory<>("annonce_title"));
-      //  DateCreate.setCellValueFactory(new PropertyValueFactory<>("annonce_created_at"));
+      DateCreate.setCellValueFactory(new PropertyValueFactory<>("annonce_created_at"));
         typeAnnonce.setCellValueFactory(new PropertyValueFactory<>("annonce_type"));
         Price.setCellValueFactory(new PropertyValueFactory<>("total_price"));
-        annonce_image.setCellValueFactory(new PropertyValueFactory<>("annonce_image"));
+       
         annonceC.setCellValueFactory(new PropertyValueFactory<>("annonce_content"));
         
 
@@ -182,10 +224,10 @@ public class AnnonceController implements Initializable {
         System.out.println(list);
 
          titleAnnonce.setCellValueFactory(new PropertyValueFactory<>("annonce_title"));
-      //  DateCreate.setCellValueFactory(new PropertyValueFactory<>("annonce_created_at"));
+        DateCreate.setCellValueFactory(new PropertyValueFactory<>("annonce_created_at"));
         typeAnnonce.setCellValueFactory(new PropertyValueFactory<>("annonce_type"));
         Price.setCellValueFactory(new PropertyValueFactory<>("total_price"));
-        annonce_image.setCellValueFactory(new PropertyValueFactory<>("annonce_image"));
+        
         annonceC.setCellValueFactory(new PropertyValueFactory<>("annonce_content"));
         TableAnnonceListe.setItems(FXCollections.observableArrayList(listAnnonce));
 
@@ -250,11 +292,11 @@ public class AnnonceController implements Initializable {
                                ContentAn.setText(String.valueOf(annonceselected.getAnnonce_content()));
 
 
-                                // DateCrAn.setValue((annonceselected.getAnnonce_created_at().LocalDate()));
-                                typeannon.setText(annonceselected.getAnnonce_type());
+
+                                comboannonce.setValue(annonceselected.getAnnonce_type());
 
                                 //TotalPriceAn.setText(annonceselected.getTotal_price());
-                                imgAn.setText(annonceselected.getAnnonce_image());
+                              
                                 try {
 
                                     a1.update(annonceselected);
@@ -300,14 +342,14 @@ public class AnnonceController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if (titlAnnonce.getText().trim().isEmpty() || priceAn.getText().trim().isEmpty()
-                        || typeannon.getText().trim().isEmpty() || imgAn.getText().trim().isEmpty() || ContentAn.getText().trim().isEmpty()) {
+                        ||  comboannonce.getItems().isEmpty()|| ContentAn.getText().trim().isEmpty()) {
                     AlertModal.showErrorAlert(null, "Please fill in all information to add annonce!");
                 } else {
                     {
                         try {
                             Annonce a;
-                            a = new Annonce.AnnonceBuilder().annonce_type(typeannon.getText()).annonce_created_at(Date.valueOf(dateCre.getValue())).annonce_title(titlAnnonce.getText()).annonce_content(ContentAn.getText())
-                                    .total_price(Integer.parseInt(priceAn.getText())).annonce_image(imgAn.getText()).jeu_id(1).userId(AuthService.loggedInUser.getUserId()).build();
+                            a = new Annonce.AnnonceBuilder().annonce_type(comboannonce.getValue()).annonce_created_at(Date.valueOf(dateCre.getValue())).annonce_title(titlAnnonce.getText()).annonce_content(ContentAn.getText())
+                                    .total_price(Integer.parseInt(priceAn.getText())).annonce_image(urlSelected.getText()).jeu_id(1).userId(AuthService.loggedInUser.getUserId()).build();
 
                             AnnonceDAOImp eventService = new AnnonceDAOImp();
 
@@ -323,10 +365,12 @@ public class AnnonceController implements Initializable {
 
                         titlAnnonce.setText(null);
                         dateCre.setValue(null);
-                        typeannon.setText(null);
+                         ContentAn.setText(null);
+
+                        comboannonce.setValue(null);
                         priceAn.setText(null);
-                        imgAn.setText(null);
-                        ContentAn.setText(null);
+                        urlSelected.setText(null);
+                        imguploqd.setImage(null);
 
                     }
                 }
@@ -341,7 +385,7 @@ public class AnnonceController implements Initializable {
                     
                         try {
                             Annonce a;
-                            a = new Annonce(annonceselected.getAnnonce_id(),typeannon.getText(),Date.valueOf(dateCre.getValue()),Integer.parseInt(priceAn.getText()),titlAnnonce.getText(),ContentAn.getText(),imgAn.getText(),AuthService.loggedInUser.getUserId(),1);
+                            a = new Annonce(annonceselected.getAnnonce_id(),comboannonce.getValue(),Date.valueOf(dateCre.getValue()),Integer.parseInt(priceAn.getText()),imgAn.getText(),ContentAn.getText(),titlAnnonce.getText(),AuthService.loggedInUser.getUserId(),1);
                             System.out.println(".handle()"+a);
                             AnnonceDAOImp eventService = new AnnonceDAOImp();
                             eventService.update(a);

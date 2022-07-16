@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -47,8 +48,7 @@
                      <children>
                         <TextField fx:id="titlAnnonce" layoutX="126.0" layoutY="14.0" />
                         <TextField fx:id="priceAn" layoutX="126.0" layoutY="210.0" />
-                        <TextField fx:id="ContentAn" layoutX="127.0" layoutY="364.0" />
-                        <TextField fx:id="imgAn" layoutX="128.0" layoutY="291.0" />
+                        <TextField fx:id="ContentAn" layoutX="127.0" layoutY="284.0" />
                         <Label layoutX="16.0" layoutY="18.0" text="title Annonce" textFill="#fffdfd">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -62,7 +62,7 @@
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font></Label>
-                        <Label layoutX="7.0" layoutY="294.0" text="annonce_image" textFill="WHITE">
+                        <Label layoutX="-10.0" layoutY="379.0" text="annonce_image" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font></Label>
@@ -70,26 +70,28 @@
                         <Button fx:id="ajoute_Annonce" layoutX="47.0" layoutY="485.0" mnemonicParsing="false" text="Ajouter " />
                         <Button fx:id="UPDATE" layoutX="173.0" layoutY="485.0" mnemonicParsing="false" text="Update" />
                         <Label layoutX="18.0" layoutY="150.0" text="annonce type" textFill="#ddd5d5" />
-                        <Label fx:id="annoncecontent" layoutX="20.0" layoutY="367.0" text="annonce content" textFill="WHITE">
+                        <Label fx:id="annoncecontent" layoutX="-4.0" layoutY="287.0" text="annonce content" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="typeannon" layoutX="123.0" layoutY="146.0" />
                         <DatePicker fx:id="dateCre" layoutX="114.0" layoutY="72.0" />
+                        <ComboBox fx:id="comboannonce" layoutX="112.0" layoutY="146.0" onAction="#Select" prefWidth="150.0" />
+                        <Button fx:id="imgAn" layoutX="161.0" layoutY="376.0" mnemonicParsing="false" onAction="#Addimg" text="upload" />
+                        <Label fx:id="urlSelected" alignment="CENTER" layoutX="30.0" layoutY="428.0" prefHeight="17.0" prefWidth="210.0" text="url Selected" />
                      </children>
                   </AnchorPane>
-                  <TableView fx:id="TableAnnonceListe" layoutX="334.0" layoutY="90.0" prefHeight="382.0" prefWidth="646.0">
+                  <TableView fx:id="TableAnnonceListe" layoutX="334.0" layoutY="90.0" prefHeight="308.0" prefWidth="608.0">
                     <columns>
                       <TableColumn fx:id="titleAnnonce" prefWidth="87.0" text="title Annonce" />
-                      <TableColumn fx:id="DateCreate" prefWidth="106.0" text="Date de Creation" />
-                        <TableColumn fx:id="typeAnnonce" prefWidth="83.0" text="annonce type" />
-                        <TableColumn fx:id="Price" prefWidth="46.0" text="Price" />
-                        <TableColumn fx:id="annonce_image" prefWidth="93.0" text="annonce_image" />
-                        <TableColumn fx:id="annonceC" prefWidth="105.0" text="annonce content" />
-                        <TableColumn fx:id="action" prefWidth="125.0" text="action" />
+                      <TableColumn fx:id="DateCreate" prefWidth="114.0" text="Date de Creation" />
+                        <TableColumn fx:id="typeAnnonce" prefWidth="94.0" text="annonce type" />
+                        <TableColumn fx:id="Price" prefWidth="52.0" text="Price" />
+                        <TableColumn fx:id="annonceC" prefWidth="108.0" text="annonce content" />
+                        <TableColumn fx:id="action" prefWidth="152.0" text="action" />
                     </columns>
                   </TableView>
+                  <ImageView fx:id="imguploqd" fitHeight="150.0" fitWidth="200.0" layoutX="508.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
          </children></AnchorPane>
