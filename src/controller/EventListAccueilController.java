@@ -219,8 +219,7 @@ public class EventListAccueilController implements Initializable {
                               
                                    editBtn.setOnAction((ActionEvent event) -> {
                                        
-                                
-                                 //  eventselected = getTableView().getItems().get(getIndex());
+                                eventselected = getTableView().getItems().get(getIndex());
 
                                        Integer user_id= AuthService.loggedInUser.getUserId();
                                        System.out.println("user"+user_id);
@@ -237,21 +236,21 @@ public class EventListAccueilController implements Initializable {
                                    try {
                                       // System.out.println(".updateItem()"+r);
                                        reservationService.insert(r);
+                                        sendSMS sm =new sendSMS();
+                                        sm.sendSMS();
+                                        eventselected.setEventMaxNumberParticipant(eventselected.getEventMaxNumberParticipant() -1);
+                                        System.out.println(".updateItem()0 " + eventselected.getEventMaxNumberParticipant());
+                                         if(eventselected.getEventMaxNumberParticipant()< 0 ){
+                                 
+                                    editBtn.setDisable(true);
+
+                              }
+                        System.out.println(".updateItem()"+ eventselected.getEventMaxNumberParticipant());
+
                                    } catch (SQLException ex) {
                                        Logger.getLogger(EventListAccueilController.class.getName()).log(Level.SEVERE, null, ex);
                                    }
-                                       //  saveButton.setText("UPDATE");
-                                     /*  sendSMS sm =new sendSMS();
-                                       sm.sendSMS();*/
-                                       
-                           //       eventselected.setEventMaxNumberParticipant(eventselected.getEventMaxNumberParticipant() -1);
-                                  
-                                   //         if(eventselected.getEventMaxNumberParticipant()< 0 ){
-                                //   
-                                  //   editBtn.setDisable(true);
-
-                            //   }
-//                                       System.out.println(".updateItem()"+ eventselected.getEventMaxNumberParticipant());
+                            
                                    }); 
                                    
                            

@@ -247,7 +247,7 @@ public class EventController implements Initializable {
                               eventselected = getTableView().getItems().get(getIndex());
                                 nameEvent.setText(eventselected.getEventName());
 
-                                tanche_Age.setText(eventselected.getEventAgeRange());
+                                tanche_Age.setText(String.valueOf(eventselected.getEventAgeRange()));
                                 adresseEvente.setText(eventselected.getEventAddress());
 
                                 date_debut.setValue((eventselected.getEventStartDate()).toLocalDate());
@@ -305,11 +305,32 @@ TableEventList.setItems(FXCollections.observableArrayList(e1.getAllByUserConncet
                 if (nameEvent.getText().trim().isEmpty() || nb_participant.getText().trim().isEmpty() || despEvent.getText().trim().isEmpty()
                         || tanche_Age.getText().trim().isEmpty() || nbReservation.getText().trim().isEmpty() || adresseEvente.getText().trim().isEmpty()) {
                     AlertModal.showErrorAlert(null, "Please fill in all information to add event!");
-                } else {
+                }   if ( !nb_participant.getText().matches("[0-9]+")) {
+                    AlertModal.showErrorAlert("nombre de participant" , "Please must be number !");
+                    
+                }  if ( !nbReservation.getText().matches("[0-9]+")) {
+                    AlertModal.showErrorAlert("nombre de Reservation" , "Please must be number !");
+                
+                }if ( !tanche_Age.getText().matches("[0-9]+")) {
+                    AlertModal.showErrorAlert("tranche d'age" , "Please must be number !");
+                
+                }  
+                
+                
+                
+                if (Date.valueOf(date_debut.getValue()).after(Date.valueOf(date_Fin.getValue()))) {
+                    AlertModal.showErrorAlert("Date Debut must be > date fin" , "Date Debut must be > date fin !");
+                       date_debut.setValue(null);
+                        date_Fin.setValue(null);
+                }
+                
+                
+                
+                else {
                     {
                         try {
                             Event e;
-                            e = new Event.EventBuilder().eventName(nameEvent.getText()).eventStartDate(Date.valueOf(date_debut.getValue())).eventEndDate(Date.valueOf(date_Fin.getValue())).eventAgeRange(tanche_Age.getText()).eventAddress(adresseEvente.getText())
+                            e = new Event.EventBuilder().eventName(nameEvent.getText()).eventStartDate(Date.valueOf(date_debut.getValue())).eventEndDate(Date.valueOf(date_Fin.getValue())).eventAgeRange(Integer.parseInt(tanche_Age.getText())).eventAddress(adresseEvente.getText())
                                     .eventMaxNumberParticipant(Integer.parseInt(nb_participant.getText())).eventNumberReservation(Integer.parseInt(nbReservation.getText())).eventDescription(despEvent.getText()).userId(AuthService.loggedInUser.getUserId()).build();
 
                             EventDAOImp eventService = new EventDAOImp();
@@ -352,7 +373,7 @@ TableEventList.setItems(FXCollections.observableArrayList(e1.getAllByUserConncet
                     
                         try {
                             Event e;
-                            e = new Event(eventselected.getEventId(),nameEvent.getText(),Date.valueOf(date_debut.getValue()),Date.valueOf(date_Fin.getValue()),tanche_Age.getText(),adresseEvente.getText(),Integer.parseInt(nb_participant.getText()),Integer.parseInt(nbReservation.getText()),despEvent.getText(),AuthService.loggedInUser.getUserId());
+                            e = new Event(eventselected.getEventId(),nameEvent.getText(),Date.valueOf(date_debut.getValue()),Date.valueOf(date_Fin.getValue()),Integer.parseInt(tanche_Age.getText()),adresseEvente.getText(),Integer.parseInt(nb_participant.getText()),Integer.parseInt(nbReservation.getText()),despEvent.getText(),AuthService.loggedInUser.getUserId());
 
                             EventDAOImp eventService = new EventDAOImp();
 

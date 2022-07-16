@@ -49,7 +49,7 @@ public class EventDAOImp implements EventDAO {
                 String eventName = rs.getString("event_name");
                 Date eventStartDate = rs.getDate("event_start_date");
                 Date eventEndDate = rs.getDate("event_end_date");
-                String eventAgeRange = rs.getString("event_age_range");
+                int eventAgeRange = rs.getInt("event_age_range");
                 String eventAddress = rs.getString("event_address");
                 int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
                 int eventNumberReservation = rs.getInt("event_number_reservation");
@@ -84,7 +84,7 @@ public class EventDAOImp implements EventDAO {
             String eventName = rs.getString("event_name");
             Date eventStartDate = rs.getDate("event_start_date");
             Date eventEndDate = rs.getDate("event_end_date");
-            String eventAgeRange = rs.getString("event_age_range");
+            int eventAgeRange = rs.getInt("event_age_range");
             String eventAddress = rs.getString("event_address");
             int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
             int eventNumberReservation = rs.getInt("event_number_reservation");
@@ -118,7 +118,7 @@ public class EventDAOImp implements EventDAO {
             insertps.setString(1, event.getEventName());
             insertps.setDate(2, (java.sql.Date) event.getEventStartDate());
             insertps.setDate(3, (java.sql.Date) event.getEventEndDate());
-            insertps.setString(4, event.getEventAgeRange());
+            insertps.setInt(4, event.getEventAgeRange());
             insertps.setString(5, event.getEventAddress());
             insertps.setInt(6, event.getEventMaxNumberParticipant());
             insertps.setInt(7, event.getEventNumberReservation());
@@ -148,7 +148,7 @@ public class EventDAOImp implements EventDAO {
             updateps.setString(1, event.getEventName());
             updateps.setDate(2, (java.sql.Date) event.getEventStartDate());
             updateps.setDate(3, (java.sql.Date) event.getEventEndDate());
-            updateps.setString(4, event.getEventAgeRange());
+            updateps.setInt(4, event.getEventAgeRange());
             updateps.setString(5, event.getEventAddress());
             updateps.setInt(6, event.getEventMaxNumberParticipant());
             updateps.setInt(7, event.getEventNumberReservation());
@@ -186,7 +186,7 @@ public class EventDAOImp implements EventDAO {
       public List<Event> getAllByUserConncet(int id) throws SQLException {
 
         Connection con = Datasource.getConnection();
-        String sql = "SELECT * FROM evenement where user_id=4";
+        String sql = "SELECT * FROM evenement where user_id=5";
 
         List<Event> events = new ArrayList<>();
 
@@ -199,7 +199,7 @@ public class EventDAOImp implements EventDAO {
             String eventName = rs.getString("event_name");
             Date eventStartDate = rs.getDate("event_start_date");
             Date eventEndDate = rs.getDate("event_end_date");
-            String eventAgeRange = rs.getString("event_age_range");
+            int eventAgeRange = rs.getInt("event_age_range");
             String eventAddress = rs.getString("event_address");
             int eventMaxNumberParticipant = rs.getInt("event_max_number_participant");
             int eventNumberReservation = rs.getInt("event_number_reservation");

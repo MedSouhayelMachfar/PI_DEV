@@ -14,14 +14,14 @@ import com.twilio.type.PhoneNumber;
  * @author Nawres
  */
 public class sendSMS {
-    public static final String ACCOUNT_SID = System.getenv("AC1aefcf79b6a7fe78f7b0a742908aa113");
-    public static final String AUTH_TOKEN = System.getenv("d6c9ddcfbca66d42bf77d4146397b252");
+    public static final String ACCOUNT_SID = System.getenv("ACcc95a879c3c1ae23fd17706c2c7c2bfb");
+    public static final String AUTH_TOKEN = System.getenv("5569ace6d1795191979ec23e8903f346");
    
 
     public static void sendSMS() {
-        Twilio.init("AC1aefcf79b6a7fe78f7b0a742908aa113", "d6c9ddcfbca66d42bf77d4146397b252");
-        Message message = Message.creator(new PhoneNumber("+21654111636"),
-                new PhoneNumber("+19897188312"),
+        Twilio.init("ACcc95a879c3c1ae23fd17706c2c7c2bfb", "5569ace6d1795191979ec23e8903f346");
+        Message message = Message.creator(new PhoneNumber("+21652854245"),
+                new PhoneNumber("+18584633984"),
                 "events valide").create();
         System.out.println(message.getSid());
        

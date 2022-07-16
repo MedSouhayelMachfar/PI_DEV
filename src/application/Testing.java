@@ -23,7 +23,7 @@ public class Testing {
 	
                Event myEvent= new Event.EventBuilder().
                        eventName("Event melek").eventStartDate( new Date (2022-03-05)).
-                       eventEndDate( new Date (2022-04-05)).eventAgeRange("15").
+                       eventEndDate( new Date (2022-04-05)).eventAgeRange(15).
                        eventAddress("Tunis").eventMaxNumberParticipant(30).eventNumberReservation(25).
                        eventDescription("firsttnt").userId(1).build();
                

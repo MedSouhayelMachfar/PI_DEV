@@ -74,7 +74,7 @@ public class addEventeController implements Initializable {
                     {
                         try {
                         Event e;
-                        e = new Event.EventBuilder().eventName(nameEvent.getText()).eventStartDate( Date.valueOf(date_debut.getValue())).eventEndDate( Date.valueOf(date_Fin.getValue())).eventAgeRange(tanche_Age.getText()).eventAddress(adresseEvent.getText())
+                        e = new Event.EventBuilder().eventName(nameEvent.getText()).eventStartDate( Date.valueOf(date_debut.getValue())).eventEndDate( Date.valueOf(date_Fin.getValue())).eventAgeRange(Integer.parseInt(tanche_Age.getText())).eventAddress(adresseEvent.getText())
                                 .eventMaxNumberParticipant (Integer.parseInt(nb_participant.getText())).eventNumberReservation(Integer.parseInt(nbReservation.getText())).eventDescription(despEvent.getText()).userId(AuthService.loggedInUser.getUserId()).build();
                         
                         

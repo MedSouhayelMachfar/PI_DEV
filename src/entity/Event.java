@@ -22,7 +22,7 @@ public class Event {
     private Date eventEndDate;
 
 
-    private String eventAgeRange;
+    private int eventAgeRange;
     private String eventAddress;
     private int eventMaxNumberParticipant;
     private int eventNumberReservation;
@@ -35,7 +35,7 @@ public class Event {
 
     }
 
-    public Event(int eventId, String eventName, Date eventStartDate, Date eventEndDate, String eventAgeRange, String eventAddress, int eventMaxNumberParticipant, int eventNumberReservation, String eventDescription, int userId) {
+    public Event(int eventId, String eventName, Date eventStartDate, Date eventEndDate, int eventAgeRange, String eventAddress, int eventMaxNumberParticipant, int eventNumberReservation, String eventDescription, int userId) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventStartDate = eventStartDate;
@@ -95,11 +95,11 @@ public class Event {
         this.eventEndDate = eventEndDate;
     }
 
-    public String getEventAgeRange() {
+    public int getEventAgeRange() {
         return eventAgeRange;
     }
 
-    public void setEventAgeRange(String eventAgeRange) {
+    public void setEventAgeRange(int eventAgeRange) {
         this.eventAgeRange = eventAgeRange;
     }
 
@@ -162,7 +162,7 @@ public class Event {
         private Date eventStartDate;
         private Date eventEndDate;
 
-        private String eventAgeRange;
+        private int eventAgeRange;
         private String eventAddress;
         public int eventMaxNumberParticipant;
         private int eventNumberReservation;
@@ -197,7 +197,7 @@ public class Event {
             return this;
         }
 
-        public EventBuilder eventAgeRange(String eventAgeRange) {
+        public EventBuilder eventAgeRange(int eventAgeRange) {
             this.eventAgeRange = eventAgeRange;
             return this;
         }
