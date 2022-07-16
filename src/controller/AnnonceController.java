@@ -110,8 +110,7 @@ public class AnnonceController implements Initializable {
 
     @FXML
     private TableColumn<Annonce, Integer> Price;
- @FXML
-    private TableColumn<Annonce, String> annonce_image;
+
     @FXML
     private TableColumn<Annonce, String> annonceC;
 
@@ -342,7 +341,7 @@ public class AnnonceController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if (titlAnnonce.getText().trim().isEmpty() || priceAn.getText().trim().isEmpty()
-                        ||  comboannonce.getItems().isEmpty()|| ContentAn.getText().trim().isEmpty()) {
+                      || ContentAn.getText().trim().isEmpty()) {
                     AlertModal.showErrorAlert(null, "Please fill in all information to add annonce!");
                 } else {
                     {
@@ -367,7 +366,7 @@ public class AnnonceController implements Initializable {
                         dateCre.setValue(null);
                          ContentAn.setText(null);
 
-                        comboannonce.setValue(null);
+                     //   comboannonce.setValue(null);
                         priceAn.setText(null);
                         urlSelected.setText(null);
                         imguploqd.setImage(null);
