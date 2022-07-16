@@ -32,12 +32,6 @@ public class HomeController implements Initializable {
 	private MenuBar menubar;
 
 	@FXML
-	private MenuItem item_annonce;
-
-	@FXML
-	private MenuItem item_event;
-
-	@FXML
 	private MenuItem item_compte;
 
 	@FXML
@@ -67,15 +61,11 @@ public class HomeController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		label_welcome.setText(AuthService.loggedInUser.getLastName());
-		if(AuthService.loggedInUser.getUserImage().equals("")) {
-			AuthService.loggedInUser.setUserImage( "avatar.png");
-		}
+
 		String imageSource = "http://localhost:3030/api/v1/users/image/"+AuthService.loggedInUser.getUserImage();
 		profile_image.setImage(new Image(imageSource));
 		// Hide functionality for simple users
 		if (!AuthService.loggedInUser.getRole().equals("admin")) {
-			item_annonce.setVisible(false);
-			item_event.setVisible(false);
 			item_compte.setVisible(false);
 		}
 
@@ -91,6 +81,8 @@ public class HomeController implements Initializable {
 					return;
 				}
 				if (targetElement.contains("item_compte")) {
+					SceneManager.changeSceneForMenuBar((Stage) menubar.getScene().getWindow(), "GererCompte.fxml",
+							"Login");
 					return;
 				}
 				if (targetElement.contains("item_parametre")) {

@@ -34,8 +34,6 @@
               <menus>
                   <Menu fx:id="customMenu" mnemonicParsing="false" text="Menu">
                     <items>
-                      <MenuItem fx:id="item_annonce" mnemonicParsing="false" text="Gerer annonces" />
-                        <MenuItem fx:id="item_event" mnemonicParsing="false" text="Gerer Event" />
                         <MenuItem fx:id="item_compte" mnemonicParsing="false" text="Gerer compte" />
                         <MenuItem fx:id="item_parametre" mnemonicParsing="false" text="Parametre" />
                         <MenuItem fx:id="item_logout" mnemonicParsing="false" text="Logout" />

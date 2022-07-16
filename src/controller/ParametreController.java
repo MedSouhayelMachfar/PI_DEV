@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import service.AuthService;
 import service.UserDAOImpl;
+import utils.AlertModal;
 import utils.SceneManager;
 import utils.UploadImage;
 
@@ -49,7 +50,7 @@ public class ParametreController implements Initializable {
 		button_back.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SceneManager.changeScene(event, "home.fxml", "Login", null);
+				SceneManager.changeScene(event, "home.fxml", "Home", null);
 			}
 		});
 
@@ -97,6 +98,7 @@ public class ParametreController implements Initializable {
 						AuthService.loggedInUser.setUserImage(imageName);
 						try {
 							new UserDAOImpl().update(AuthService.loggedInUser);
+							AlertModal.showInfoAlert(null, "You're account has been updated successfuly");
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

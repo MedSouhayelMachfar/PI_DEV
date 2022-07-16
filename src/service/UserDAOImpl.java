@@ -147,5 +147,26 @@ public class UserDAOImpl implements UserDAO {
 
 		return result;
 	}
+	
+	public int changeEtatCompte(int user_id, String etatCompte) throws SQLException {
+		Connection connection = Datasource.getConnection();
+		int result = -1;
+		if (connection != null) {
+			String updateQuery = " UPDATE user "
+					+ " SET etat_compte = ?"
+					+ " WHERE user_id = ?; ";
+			PreparedStatement updateps = connection.prepareStatement(updateQuery);
+
+			updateps.setString(1, etatCompte);
+			updateps.setInt(2, user_id);
+
+			result = updateps.executeUpdate();
+
+			Datasource.closePreparedStatement(updateps);
+		}
+
+		return result;
+	}
+
 
 }
