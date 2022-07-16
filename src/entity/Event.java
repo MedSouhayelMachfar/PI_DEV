@@ -30,6 +30,10 @@ public class Event {
 
     private int userId;
 
+    public Event(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
     // Constructors
     public Event() {
 

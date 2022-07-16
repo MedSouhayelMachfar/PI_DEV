@@ -46,7 +46,7 @@ import utils.SceneManager;
  *
  * @author user
  */
-public class EventListAccueilController implements Initializable {
+public class gererEventController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -93,7 +93,8 @@ public class EventListAccueilController implements Initializable {
     @FXML
     private TableColumn<Event, String> tancheAge;
     
-
+@FXML
+    private TextField despEvent;
       @FXML
        private TableView<Event> tableEventListe;
     Event eventselected;
@@ -157,6 +158,7 @@ public class EventListAccueilController implements Initializable {
         dateFin.setCellValueFactory(new PropertyValueFactory<>("eventEndDate"));
         tancheAge.setCellValueFactory(new PropertyValueFactory<>("eventAgeRange"));
         adresse.setCellValueFactory(new PropertyValueFactory<>("eventAddress"));
+
            nbMax.setCellValueFactory(new PropertyValueFactory<>("eventMaxNumberParticipant"));
 
         tableEventListe.setItems(FXCollections.observableArrayList(listEvent));
@@ -214,42 +216,28 @@ public class EventListAccueilController implements Initializable {
                                setGraphic(null);
                                setText(null);
                            } else {
-                               Button editBtn = new Button("Reserver");
+                               Button editBtn = new Button("valide");
                             
                               
                                    editBtn.setOnAction((ActionEvent event) -> {
                                        
-                                eventselected = getTableView().getItems().get(getIndex());
+                               
 
-                                       Integer user_id= AuthService.loggedInUser.getUserId();
-                                       System.out.println("user"+user_id);
-                                       Integer event_id=getTableView().getItems().get(getIndex()).getEventId();
-                                       System.out.println("even"+event_id);
-                                       UserDAOImpl us= new UserDAOImpl();
-                                       User u1 =  us.get(user_id);
-                                      EventDAOImp ev = new EventDAOImp();
-                                      Event e12 =ev.get(event_id);
-                           reservation r = new reservation(u1,e12);
 
-                            ReservationDAOImpl reservationService = new ReservationDAOImpl();
+                               
+                         despEvent.setText(eventselected.getEventDescription());
+                                try {
+                                    
+                                    e1.update(eventselected);
+                                    // passwordField.setText( eventselected.getPassword());
+                                    System.out.println("selected"+ eventselected.getEventName()+ eventselected.getEventDescription());
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(EventController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
 
-                                   try {
-                                      // System.out.println(".updateItem()"+r);
-                                       reservationService.insert(r);
-                                        sendSMS sm =new sendSMS();
-                                        sm.sendSMS();
-                                        eventselected.setEventMaxNumberParticipant(eventselected.getEventMaxNumberParticipant() -1);
-                                        System.out.println(".updateItem()0 " + eventselected.getEventMaxNumberParticipant());
-                                         if(eventselected.getEventMaxNumberParticipant()< 0 ){
-                                 
-                                    editBtn.setDisable(true);
 
-                              }
-                        System.out.println(".updateItem()"+ eventselected.getEventMaxNumberParticipant());
 
-                                   } catch (SQLException ex) {
-                                       Logger.getLogger(EventListAccueilController.class.getName()).log(Level.SEVERE, null, ex);
-                                   }
+                    
                             
                                    }); 
                                    

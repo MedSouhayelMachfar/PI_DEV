@@ -88,6 +88,8 @@ public class HomeController implements Initializable {
 					return;
 				}
 				if (targetElement.contains("item_event")) {
+                                    SceneManager.changeSceneForMenuBar((Stage) menubar.getScene().getWindow(), "gererEvent.fxml",
+							"event");
 
 					return;
 				}
