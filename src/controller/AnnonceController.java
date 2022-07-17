@@ -343,7 +343,12 @@ public class AnnonceController implements Initializable {
                 if (titlAnnonce.getText().trim().isEmpty() || priceAn.getText().trim().isEmpty()
                       || ContentAn.getText().trim().isEmpty()) {
                     AlertModal.showErrorAlert(null, "Please fill in all information to add annonce!");
-                } else {
+                } 
+                if ( !priceAn.getText().matches("[0-9]+")) {
+                    AlertModal.showErrorAlert("Price" , "Please must be number !");
+                
+                }
+                else {
                     {
                         try {
                             Annonce a;
